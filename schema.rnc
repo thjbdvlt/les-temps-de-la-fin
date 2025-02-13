@@ -1,0 +1,106 @@
+default namespace = "http://www.tei-c.org/ns/1.0"
+namespace ud = "https://universaldependencies.org/u/feat"
+
+start = teiud
+teiud = element TEI {
+    Header,
+    element text {
+        element body {
+            element div {
+                attribute type { "part" },
+                element head { text },
+                element div {
+                    attribute type { "chapter" },
+                    element head { text },
+                    element p {
+                        element s {
+                            (
+                                Token
+                                | element date { Token+ }
+                                | element measure { Token+ }
+                            )+
+                        }+
+                    }+
+                }+
+            }+
+        }
+    }
+}
+Token = (
+    # a token can be a word or a punctuation sign
+    element w {
+        # words must have lemma and part-of-speech
+        attribute lemma { text },
+        attribute pos { text },
+        # they can also have any morphological feature
+        attribute ud:* { text }*,
+        text
+    }
+    # punctuation sign have no attributes
+    | element pc { text }
+)
+Name = ( 
+    element name { NameContent }
+    | element persName { NameContent }
+    | element orgName { NameContent }
+)
+NameContent =
+    attribute type { text }?,
+    attribute ref { text }?,
+    text
+DateHeader = element date {
+    attribute when { text }?,
+    text
+}
+Header = element teiHeader {
+        element fileDesc {
+            element titleStmt {
+                element title { (
+                    text
+                    | element title { text }
+                    | Name
+                )+ },
+                element respStmt {
+                    element resp { text },
+                    Name+
+                }+
+            },
+            element publicationStmt {
+                element publisher { Name },
+                DateHeader,
+                element availability {
+                    attribute status { text },
+                    element licence {
+                        attribute target { text },
+                        text
+                    }
+                }
+            },
+            element sourceDesc {
+                element biblStruct {
+                    element monogr {
+                        element title { text },
+                        element author { Name },
+                        element imprint {
+                            element publisher { 
+                                attribute ref { text }?,
+                                Name
+                            },
+                            element pubPlace { text },
+                            DateHeader
+                        }
+                    }
+                }
+            }
+        },
+        element encodingDesc {
+            element p { (
+                text
+                | Name
+                | element title { text }
+                | element foreign { text }
+                | element q { text }
+                | element code { text }
+            )+ }+
+        }
+    }
