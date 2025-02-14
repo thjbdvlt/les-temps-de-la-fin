@@ -53,54 +53,54 @@ DateHeader = element date {
     text
 }
 Header = element teiHeader {
-        element fileDesc {
-            element titleStmt {
-                element title { (
+    element fileDesc {
+        element titleStmt {
+            element title { (
+                text
+                | element title { text }
+                | Name
+            )+ },
+            element respStmt {
+                element resp { text },
+                Name+
+            }+
+        },
+        element publicationStmt {
+            element publisher { Name },
+            DateHeader,
+            element availability {
+                attribute status { text },
+                element licence {
+                    attribute target { text },
                     text
-                    | element title { text }
-                    | Name
-                )+ },
-                element respStmt {
-                    element resp { text },
-                    Name+
-                }+
-            },
-            element publicationStmt {
-                element publisher { Name },
-                DateHeader,
-                element availability {
-                    attribute status { text },
-                    element licence {
-                        attribute target { text },
-                        text
-                    }
-                }
-            },
-            element sourceDesc {
-                element biblStruct {
-                    element monogr {
-                        element title { text },
-                        element author { Name },
-                        element imprint {
-                            element publisher { 
-                                attribute ref { text }?,
-                                Name
-                            },
-                            element pubPlace { text },
-                            DateHeader
-                        }
-                    }
                 }
             }
         },
-        element encodingDesc {
-            element p { (
-                text
-                | Name
-                | element title { text }
-                | element foreign { text }
-                | element q { text }
-                | element ident { attribute type { text }?, text }
-            )+ }+
+        element sourceDesc {
+            element biblStruct {
+                element monogr {
+                    element title { text },
+                    element author { Name },
+                    element imprint {
+                        element publisher { 
+                            attribute ref { text }?,
+                            Name
+                        },
+                        element pubPlace { text },
+                        DateHeader
+                    }
+                }
+            }
         }
+    },
+    element encodingDesc {
+        element p { (
+            text
+            | Name
+            | element title { text }
+            | element foreign { text }
+            | element q { text }
+            | element ident { attribute type { text }?, text }
+        )+ }+
     }
+}

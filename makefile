@@ -12,6 +12,9 @@ pip = venv/bin/pip3
 
 .PHONY: all validate clean
 
+transform: ud-to-msd-verbs.xsl $(tei)
+	xmlstarlet tr $^
+
 all: clean $(no-ud) validate
 
 validate:
@@ -27,6 +30,7 @@ venv:
 	$(pip) install -r requirements.txt
 
 $(tei):
+$(ud_to_msd):
 
 clean:
 	rm -rf __pycache__ $(no-ud)
