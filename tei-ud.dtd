@@ -1,0 +1,1116 @@
+
+<!--
+DTD generated from ODD source 2025-02-14T00:24:20Z. .
+TEI Edition: P5 Version 4.9.0. Last updated on 24th January 2025, revision f73186978 
+TEI Edition Location: https://www.tei-c.org/Vault/P5/4.9.0/
+
+-->
+
+<!-- start datatypes -->
+
+<!ENTITY % teidata.certainty '(high|medium|low|unknown)' >
+
+<!ENTITY % teidata.probability ' CDATA ' >
+
+<!ENTITY % teidata.numeric ' CDATA ' >
+
+<!ENTITY % teidata.count ' CDATA ' >
+
+<!ENTITY % teidata.temporal.w3c ' CDATA ' >
+
+<!ENTITY % teidata.temporal.working ' CDATA ' >
+
+<!ENTITY % teidata.duration.w3c ' CDATA ' >
+
+<!ENTITY % teidata.truthValue ' CDATA ' >
+
+<!ENTITY % teidata.xTruthValue ' CDATA ' >
+
+<!ENTITY % teidata.language ' CDATA ' >
+
+<!ENTITY % teidata.namespace ' CDATA ' >
+
+<!ENTITY % teidata.outputMeasurement ' CDATA ' >
+
+<!ENTITY % teidata.pattern ' CDATA ' >
+
+<!ENTITY % teidata.pointer ' CDATA ' >
+
+<!ENTITY % teidata.version ' CDATA ' >
+
+<!ENTITY % teidata.versionNumber ' CDATA ' >
+
+<!ENTITY % teidata.replacement ' CDATA' >
+
+<!ENTITY % teidata.xpath ' CDATA' >
+
+<!ENTITY % teidata.word ' CDATA ' >
+
+<!ENTITY % teidata.text ' CDATA ' >
+
+<!ENTITY % teidata.name ' CDATA ' >
+
+<!ENTITY % teidata.xmlName ' CDATA ' >
+
+<!ENTITY % teidata.enumerated '%teidata.word;' >
+
+<!ENTITY % teidata.probCert ' CDATA ' >
+
+<!ENTITY % teidata.unboundedCount ' CDATA ' >
+
+<!ENTITY % teidata.temporal.iso ' CDATA ' >
+
+<!ENTITY % teidata.duration.iso ' CDATA ' >
+
+<!-- end datatypes -->
+
+<!-- predeclared classes -->
+
+<!ENTITY % tei_att.global.rendition.attribute.rend '
+rend CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.global.rendition.attribute.style '
+style %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.rendition.attribute.rendition '
+rendition CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.rendition.attributes '
+ %tei_att.global.rendition.attribute.rend;
+ %tei_att.global.rendition.attribute.style;
+ %tei_att.global.rendition.attribute.rendition;'> 
+<!ENTITY % tei_att.global.responsibility.attribute.cert '
+cert %teidata.probCert;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.responsibility.attribute.resp '
+resp CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.responsibility.attributes '
+ %tei_att.global.responsibility.attribute.cert;
+ %tei_att.global.responsibility.attribute.resp;'> 
+<!ENTITY % tei_att.global.source.attribute.source '
+source CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.source.attributes '
+ %tei_att.global.source.attribute.source;'> 
+<!ENTITY % tei_att.typed.attribute.type '
+type %teidata.enumerated;  #IMPLIED'>
+
+<!ENTITY % tei_att.typed.attribute.subtype '
+subtype %teidata.enumerated;  #IMPLIED'>
+<!ENTITY % tei_att.typed.attributes '
+ %tei_att.typed.attribute.type;
+ %tei_att.typed.attribute.subtype;'> 
+<!ENTITY % model.placeNamePart ""> 
+<!ENTITY % model.placeNamePart_sequence ""> 
+<!ENTITY % model.placeNamePart_sequenceOptional ""> 
+<!ENTITY % model.placeNamePart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.placeNamePart_sequenceRepeatable ""> 
+<!ENTITY % model.placeStateLike ""> 
+<!ENTITY % model.placeStateLike_sequence ""> 
+<!ENTITY % model.placeStateLike_sequenceOptional ""> 
+<!ENTITY % model.placeStateLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.placeStateLike_sequenceRepeatable ""> 
+<!ENTITY % model.resource "text"> 
+<!ENTITY % model.resource_sequence "text"> 
+<!ENTITY % model.resource_sequenceOptional "text?"> 
+<!ENTITY % model.resource_sequenceOptionalRepeatable "text*"> 
+<!ENTITY % model.resource_sequenceRepeatable "text+"> 
+<!ENTITY % tei_att.datable.custom.attribute.when-custom '
+when-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.notBefore-custom '
+notBefore-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.notAfter-custom '
+notAfter-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.from-custom '
+from-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.to-custom '
+to-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.datingPoint '
+datingPoint %teidata.pointer;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.datingMethod '
+datingMethod %teidata.pointer;  #IMPLIED'>
+<!ENTITY % tei_att.datable.custom.attributes '
+ %tei_att.datable.custom.attribute.when-custom;
+ %tei_att.datable.custom.attribute.notBefore-custom;
+ %tei_att.datable.custom.attribute.notAfter-custom;
+ %tei_att.datable.custom.attribute.from-custom;
+ %tei_att.datable.custom.attribute.to-custom;
+ %tei_att.datable.custom.attribute.datingPoint;
+ %tei_att.datable.custom.attribute.datingMethod;'> 
+<!ENTITY % model.persNamePart ""> 
+<!ENTITY % model.persNamePart_sequence ""> 
+<!ENTITY % model.persNamePart_sequenceOptional ""> 
+<!ENTITY % model.persNamePart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.persNamePart_sequenceRepeatable ""> 
+<!ENTITY % tei_att.datable.iso.attribute.when-iso '
+when-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.notBefore-iso '
+notBefore-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.notAfter-iso '
+notAfter-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.from-iso '
+from-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.to-iso '
+to-iso %teidata.temporal.iso;  #IMPLIED'>
+<!ENTITY % tei_att.datable.iso.attributes '
+ %tei_att.datable.iso.attribute.when-iso;
+ %tei_att.datable.iso.attribute.notBefore-iso;
+ %tei_att.datable.iso.attribute.notAfter-iso;
+ %tei_att.datable.iso.attribute.from-iso;
+ %tei_att.datable.iso.attribute.to-iso;'> 
+<!ENTITY % tei_att.global.analytic.attribute.ana '
+ana CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.analytic.attributes '
+ %tei_att.global.analytic.attribute.ana;'> 
+<!-- end of predeclared classes -->
+
+<!ENTITY % tei_att.ascribed.attribute.who '
+who CDATA  #IMPLIED'>
+<!ENTITY % tei_att.ascribed.attributes '
+ %tei_att.ascribed.attribute.who;'> 
+<!ENTITY % tei_att.canonical.attribute.key '
+key %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.canonical.attribute.ref '
+ref CDATA  #IMPLIED'>
+<!ENTITY % tei_att.canonical.attributes '
+ %tei_att.canonical.attribute.key;
+ %tei_att.canonical.attribute.ref;'> 
+<!ENTITY % tei_att.cmc.attribute.generatedBy '
+generatedBy %teidata.enumerated;  #IMPLIED'>
+<!ENTITY % tei_att.cmc.attributes '
+ %tei_att.cmc.attribute.generatedBy;'> 
+<!ENTITY % tei_att.datable.w3c.attribute.when '
+when %teidata.temporal.w3c;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.w3c.attribute.notBefore '
+notBefore %teidata.temporal.w3c;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.w3c.attribute.notAfter '
+notAfter %teidata.temporal.w3c;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.w3c.attribute.from '
+from %teidata.temporal.w3c;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.w3c.attribute.to '
+to %teidata.temporal.w3c;  #IMPLIED'>
+<!ENTITY % tei_att.datable.w3c.attributes '
+ %tei_att.datable.w3c.attribute.when;
+ %tei_att.datable.w3c.attribute.notBefore;
+ %tei_att.datable.w3c.attribute.notAfter;
+ %tei_att.datable.w3c.attribute.from;
+ %tei_att.datable.w3c.attribute.to;'> 
+<!ENTITY % tei_att.datcat.attribute.datcat '
+datcat CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datcat.attribute.valueDatcat '
+valueDatcat CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datcat.attribute.targetDatcat '
+targetDatcat CDATA  #IMPLIED'>
+<!ENTITY % tei_att.datcat.attributes '
+ %tei_att.datcat.attribute.datcat;
+ %tei_att.datcat.attribute.valueDatcat;
+ %tei_att.datcat.attribute.targetDatcat;'> 
+<!ENTITY % tei_att.declarable.attribute.default '
+default (true|false) "false" '>
+<!ENTITY % tei_att.declarable.attributes '
+ %tei_att.declarable.attribute.default;'> 
+<!ENTITY % tei_att.declaring.attribute.decls '
+decls CDATA  #IMPLIED'>
+<!ENTITY % tei_att.declaring.attributes '
+ %tei_att.declaring.attribute.decls;'> 
+<!ENTITY % tei_att.docStatus.attribute.status '
+status %teidata.enumerated;  "draft" '>
+<!ENTITY % tei_att.docStatus.attributes '
+ %tei_att.docStatus.attribute.status;'> 
+<!ENTITY % tei_att.editLike.attribute.evidence '
+evidence NMTOKENS  #IMPLIED'>
+
+<!ENTITY % tei_att.editLike.attribute.instant '
+instant %teidata.xTruthValue;  "false" '>
+<!ENTITY % tei_att.editLike.attributes '
+ %tei_att.editLike.attribute.evidence;
+ %tei_att.editLike.attribute.instant;'> 
+<!ENTITY % tei_att.fragmentable.attribute.part '
+part (Y|N|I|M|F) "N" '>
+<!ENTITY % tei_att.fragmentable.attributes '
+ %tei_att.fragmentable.attribute.part;'> 
+<!ENTITY % tei_att.global.rendition.attribute.rend '
+rend CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.global.rendition.attribute.style '
+style %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.rendition.attribute.rendition '
+rendition CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.rendition.attributes '
+ %tei_att.global.rendition.attribute.rend;
+ %tei_att.global.rendition.attribute.style;
+ %tei_att.global.rendition.attribute.rendition;'> 
+<!ENTITY % tei_att.global.responsibility.attribute.cert '
+cert %teidata.probCert;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.responsibility.attribute.resp '
+resp CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.responsibility.attributes '
+ %tei_att.global.responsibility.attribute.cert;
+ %tei_att.global.responsibility.attribute.resp;'> 
+<!ENTITY % tei_att.global.source.attribute.source '
+source CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.source.attributes '
+ %tei_att.global.source.attribute.source;'> 
+<!ENTITY % tei_att.measurement.attribute.unit '
+unit %teidata.enumerated;  #IMPLIED'>
+
+<!ENTITY % tei_att.measurement.attribute.unitRef '
+unitRef %teidata.pointer;  #IMPLIED'>
+
+<!ENTITY % tei_att.measurement.attribute.quantity '
+quantity %teidata.numeric;  #IMPLIED'>
+
+<!ENTITY % tei_att.measurement.attribute.commodity '
+commodity CDATA  #IMPLIED'>
+<!ENTITY % tei_att.measurement.attributes '
+ %tei_att.measurement.attribute.unit;
+ %tei_att.measurement.attribute.unitRef;
+ %tei_att.measurement.attribute.quantity;
+ %tei_att.measurement.attribute.commodity;'> 
+<!ENTITY % tei_att.notated.attribute.notation '
+notation %teidata.enumerated;  #IMPLIED'>
+<!ENTITY % tei_att.notated.attributes '
+ %tei_att.notated.attribute.notation;'> 
+<!ENTITY % tei_att.placement.attribute.place '
+place NMTOKENS  #IMPLIED'>
+<!ENTITY % tei_att.placement.attributes '
+ %tei_att.placement.attribute.place;'> 
+<!ENTITY % tei_att.pointing.attribute.targetLang '
+targetLang %teidata.language;  #IMPLIED'>
+
+<!ENTITY % tei_att.pointing.attribute.target '
+target CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.pointing.attribute.evaluate '
+evaluate (all|one|none) #IMPLIED'>
+<!ENTITY % tei_att.pointing.attributes '
+ %tei_att.pointing.attribute.targetLang;
+ %tei_att.pointing.attribute.target;
+ %tei_att.pointing.attribute.evaluate;'> 
+<!ENTITY % tei_att.ranging.attribute.atLeast '
+atLeast %teidata.numeric;  #IMPLIED'>
+
+<!ENTITY % tei_att.ranging.attribute.atMost '
+atMost %teidata.numeric;  #IMPLIED'>
+
+<!ENTITY % tei_att.ranging.attribute.min '
+min %teidata.numeric;  #IMPLIED'>
+
+<!ENTITY % tei_att.ranging.attribute.max '
+max %teidata.numeric;  #IMPLIED'>
+
+<!ENTITY % tei_att.ranging.attribute.confidence '
+confidence %teidata.probability;  #IMPLIED'>
+<!ENTITY % tei_att.ranging.attributes '
+ %tei_att.ranging.attribute.atLeast;
+ %tei_att.ranging.attribute.atMost;
+ %tei_att.ranging.attribute.min;
+ %tei_att.ranging.attribute.max;
+ %tei_att.ranging.attribute.confidence;'> 
+<!ENTITY % tei_att.sortable.attribute.sortKey '
+sortKey %teidata.word;  #IMPLIED'>
+<!ENTITY % tei_att.sortable.attributes '
+ %tei_att.sortable.attribute.sortKey;'> 
+<!ENTITY % tei_att.typed.attribute.type '
+type %teidata.enumerated;  #IMPLIED'>
+
+<!ENTITY % tei_att.typed.attribute.subtype '
+subtype %teidata.enumerated;  #IMPLIED'>
+<!ENTITY % tei_att.typed.attributes '
+ %tei_att.typed.attribute.type;
+ %tei_att.typed.attribute.subtype;'> 
+<!ENTITY % tei_att.written.attribute.hand '
+hand %teidata.pointer;  #IMPLIED'>
+<!ENTITY % tei_att.written.attributes '
+ %tei_att.written.attribute.hand;'> 
+<!ENTITY % tei_att.ascribed.directed.attribute.toWhom '
+toWhom CDATA  #IMPLIED'>
+<!ENTITY % tei_att.ascribed.directed.attributes '%tei_att.ascribed.attributes;
+ %tei_att.ascribed.directed.attribute.toWhom;'> 
+<!ENTITY % tei_att.datable.attribute.period '
+period CDATA  #IMPLIED'>
+<!ENTITY % tei_att.datable.attributes '%tei_att.datable.custom.attributes;%tei_att.datable.iso.attributes;%tei_att.datable.w3c.attributes;
+ %tei_att.datable.attribute.period;'> 
+<!ENTITY % tei_att.dimensions.attribute.unit '
+unit %teidata.enumerated;  #IMPLIED'>
+
+<!ENTITY % tei_att.dimensions.attribute.quantity '
+quantity %teidata.numeric;  #IMPLIED'>
+
+<!ENTITY % tei_att.dimensions.attribute.extent '
+extent %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.dimensions.attribute.precision '
+precision %teidata.certainty;  #IMPLIED'>
+
+<!ENTITY % tei_att.dimensions.attribute.scope '
+scope %teidata.enumerated;  #IMPLIED'>
+<!ENTITY % tei_att.dimensions.attributes '%tei_att.ranging.attributes;
+ %tei_att.dimensions.attribute.unit;
+ %tei_att.dimensions.attribute.quantity;
+ %tei_att.dimensions.attribute.extent;
+ %tei_att.dimensions.attribute.precision;
+ %tei_att.dimensions.attribute.scope;'> 
+<!ENTITY % tei_att.divLike.attribute.org '
+org (composite|uniform) "uniform" '>
+
+<!ENTITY % tei_att.divLike.attribute.sample '
+sample (initial|medial|final|unknown|complete) "complete" '>
+<!ENTITY % tei_att.divLike.attributes '%tei_att.fragmentable.attributes;
+ %tei_att.divLike.attribute.org;
+ %tei_att.divLike.attribute.sample;'> 
+<!ENTITY % tei_att.global.attribute.xmlid '
+xml:id ID #IMPLIED'>
+
+<!ENTITY % tei_att.global.attribute.n '
+n %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.attribute.xmllang '
+xml:lang %teidata.language;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.attribute.xmlbase '
+xml:base %teidata.pointer;  #IMPLIED'>
+
+<!ENTITY % tei_att.global.attribute.xmlspace '
+xml:space (default|preserve) #IMPLIED'>
+<!ENTITY % tei_att.global.attributes '%tei_att.global.analytic.attributes;%tei_att.global.rendition.attributes;%tei_att.global.responsibility.attributes;%tei_att.global.source.attributes;
+ %tei_att.global.attribute.xmlid;
+ %tei_att.global.attribute.n;
+ %tei_att.global.attribute.xmllang;
+ %tei_att.global.attribute.xmlbase;
+ %tei_att.global.attribute.xmlspace;'> 
+<!ENTITY % tei_att.naming.attribute.role '
+role NMTOKENS  #IMPLIED'>
+
+<!ENTITY % tei_att.naming.attribute.nymRef '
+nymRef CDATA  #IMPLIED'>
+<!ENTITY % tei_att.naming.attributes '%tei_att.canonical.attributes;
+ %tei_att.naming.attribute.role;
+ %tei_att.naming.attribute.nymRef;'> 
+<!ENTITY % tei_att.segLike.attribute.function '
+function %teidata.enumerated;  #IMPLIED'>
+<!ENTITY % tei_att.segLike.attributes '%tei_att.datcat.attributes;%tei_att.fragmentable.attributes;
+ %tei_att.segLike.attribute.function;'> 
+<!ENTITY % model.nameLike.agent "name |orgName |persName"> 
+<!ENTITY % model.nameLike.agent_sequence "name, orgName, persName"> 
+<!ENTITY % model.nameLike.agent_sequenceOptional "name?, orgName?, persName?"> 
+<!ENTITY % model.nameLike.agent_sequenceOptionalRepeatable "name*, orgName*, persName*"> 
+<!ENTITY % model.nameLike.agent_sequenceRepeatable "name+, orgName+, persName+"> 
+<!ENTITY % model.segLike "s |w |pc"> 
+<!ENTITY % model.segLike_sequence "s, w, pc"> 
+<!ENTITY % model.segLike_sequenceOptional "s?, w?, pc?"> 
+<!ENTITY % model.segLike_sequenceOptionalRepeatable "s*, w*, pc*"> 
+<!ENTITY % model.segLike_sequenceRepeatable "s+, w+, pc+"> 
+<!ENTITY % model.hiLike "q"> 
+<!ENTITY % model.hiLike_sequence "q"> 
+<!ENTITY % model.hiLike_sequenceOptional "q?"> 
+<!ENTITY % model.hiLike_sequenceOptionalRepeatable "q*"> 
+<!ENTITY % model.hiLike_sequenceRepeatable "q+"> 
+<!ENTITY % model.emphLike "foreign |title |ident"> 
+<!ENTITY % model.emphLike_sequence "foreign, title, ident"> 
+<!ENTITY % model.emphLike_sequenceOptional "foreign?, title?, ident?"> 
+<!ENTITY % model.emphLike_sequenceOptionalRepeatable "foreign*, title*, ident*"> 
+<!ENTITY % model.emphLike_sequenceRepeatable "foreign+, title+, ident+"> 
+<!ENTITY % model.highlighted "%model.hiLike; |%model.emphLike;"> 
+<!ENTITY % model.highlighted_sequence "%model.hiLike;, %model.emphLike;"> 
+<!ENTITY % model.highlighted_sequenceOptional "%model.hiLike;?, %model.emphLike;?"> 
+<!ENTITY % model.highlighted_sequenceOptionalRepeatable "%model.hiLike;*, %model.emphLike;*"> 
+<!ENTITY % model.highlighted_sequenceRepeatable "%model.hiLike;+, %model.emphLike;+"> 
+<!ENTITY % model.dateLike "date"> 
+<!ENTITY % model.dateLike_sequence "date"> 
+<!ENTITY % model.dateLike_sequenceOptional "date?"> 
+<!ENTITY % model.dateLike_sequenceOptionalRepeatable "date*"> 
+<!ENTITY % model.dateLike_sequenceRepeatable "date+"> 
+<!ENTITY % model.measureLike "measure"> 
+<!ENTITY % model.measureLike_sequence "measure"> 
+<!ENTITY % model.measureLike_sequenceOptional "measure?"> 
+<!ENTITY % model.measureLike_sequenceOptionalRepeatable "measure*"> 
+<!ENTITY % model.measureLike_sequenceRepeatable "measure+"> 
+<!ENTITY % model.egLike ""> 
+<!ENTITY % model.egLike_sequence ""> 
+<!ENTITY % model.egLike_sequenceOptional ""> 
+<!ENTITY % model.egLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.egLike_sequenceRepeatable ""> 
+<!ENTITY % model.graphicLike ""> 
+<!ENTITY % model.graphicLike_sequence ""> 
+<!ENTITY % model.graphicLike_sequenceOptional ""> 
+<!ENTITY % model.graphicLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.graphicLike_sequenceRepeatable ""> 
+<!ENTITY % model.offsetLike ""> 
+<!ENTITY % model.offsetLike_sequence ""> 
+<!ENTITY % model.offsetLike_sequenceOptional ""> 
+<!ENTITY % model.offsetLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.offsetLike_sequenceRepeatable ""> 
+<!ENTITY % model.pPart.msdesc ""> 
+<!ENTITY % model.pPart.msdesc_sequence ""> 
+<!ENTITY % model.pPart.msdesc_sequenceOptional ""> 
+<!ENTITY % model.pPart.msdesc_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.pPart.msdesc_sequenceRepeatable ""> 
+<!ENTITY % model.pPart.editorial ""> 
+<!ENTITY % model.pPart.editorial_sequence ""> 
+<!ENTITY % model.pPart.editorial_sequenceOptional ""> 
+<!ENTITY % model.pPart.editorial_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.pPart.editorial_sequenceRepeatable ""> 
+<!ENTITY % model.pPart.transcriptional ""> 
+<!ENTITY % model.pPart.transcriptional_sequence ""> 
+<!ENTITY % model.pPart.transcriptional_sequenceOptional ""> 
+<!ENTITY % model.pPart.transcriptional_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.pPart.transcriptional_sequenceRepeatable ""> 
+<!ENTITY % model.pPart.edit ""> 
+<!ENTITY % model.pPart.edit_sequence ""> 
+<!ENTITY % model.pPart.edit_sequenceOptional ""> 
+<!ENTITY % model.pPart.edit_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.pPart.edit_sequenceRepeatable ""> 
+<!ENTITY % model.ptrLike ""> 
+<!ENTITY % model.ptrLike_sequence ""> 
+<!ENTITY % model.ptrLike_sequenceOptional ""> 
+<!ENTITY % model.ptrLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.ptrLike_sequenceRepeatable ""> 
+<!ENTITY % model.lPart ""> 
+<!ENTITY % model.lPart_sequence ""> 
+<!ENTITY % model.lPart_sequenceOptional ""> 
+<!ENTITY % model.lPart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.lPart_sequenceRepeatable ""> 
+<!ENTITY % model.global.meta ""> 
+<!ENTITY % model.global.meta_sequence ""> 
+<!ENTITY % model.global.meta_sequenceOptional ""> 
+<!ENTITY % model.global.meta_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.global.meta_sequenceRepeatable ""> 
+<!ENTITY % model.milestoneLike ""> 
+<!ENTITY % model.milestoneLike_sequence ""> 
+<!ENTITY % model.milestoneLike_sequenceOptional ""> 
+<!ENTITY % model.milestoneLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.milestoneLike_sequenceRepeatable ""> 
+<!ENTITY % model.gLike ""> 
+<!ENTITY % model.gLike_sequence ""> 
+<!ENTITY % model.gLike_sequenceOptional ""> 
+<!ENTITY % model.gLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.gLike_sequenceRepeatable ""> 
+<!ENTITY % model.oddDecl ""> 
+<!ENTITY % model.oddDecl_sequence ""> 
+<!ENTITY % model.oddDecl_sequenceOptional ""> 
+<!ENTITY % model.oddDecl_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.oddDecl_sequenceRepeatable ""> 
+<!ENTITY % model.phrase.xml ""> 
+<!ENTITY % model.phrase.xml_sequence ""> 
+<!ENTITY % model.phrase.xml_sequenceOptional ""> 
+<!ENTITY % model.phrase.xml_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.phrase.xml_sequenceRepeatable ""> 
+<!ENTITY % model.specDescLike ""> 
+<!ENTITY % model.specDescLike_sequence ""> 
+<!ENTITY % model.specDescLike_sequenceOptional ""> 
+<!ENTITY % model.specDescLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.specDescLike_sequenceRepeatable ""> 
+<!ENTITY % model.biblLike "biblStruct"> 
+<!ENTITY % model.biblLike_sequence "biblStruct"> 
+<!ENTITY % model.biblLike_sequenceOptional "biblStruct?"> 
+<!ENTITY % model.biblLike_sequenceOptionalRepeatable "biblStruct*"> 
+<!ENTITY % model.biblLike_sequenceRepeatable "biblStruct+"> 
+<!ENTITY % model.headLike "head"> 
+<!ENTITY % model.headLike_sequence "head"> 
+<!ENTITY % model.headLike_sequenceOptional "head?"> 
+<!ENTITY % model.headLike_sequenceOptionalRepeatable "head*"> 
+<!ENTITY % model.headLike_sequenceRepeatable "head+"> 
+<!ENTITY % model.labelLike ""> 
+<!ENTITY % model.labelLike_sequence ""> 
+<!ENTITY % model.labelLike_sequenceOptional ""> 
+<!ENTITY % model.labelLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.labelLike_sequenceRepeatable ""> 
+<!ENTITY % model.listLike ""> 
+<!ENTITY % model.listLike_sequence ""> 
+<!ENTITY % model.listLike_sequenceOptional ""> 
+<!ENTITY % model.listLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.listLike_sequenceRepeatable ""> 
+<!ENTITY % model.noteLike ""> 
+<!ENTITY % model.noteLike_sequence ""> 
+<!ENTITY % model.noteLike_sequenceOptional ""> 
+<!ENTITY % model.noteLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.noteLike_sequenceRepeatable ""> 
+<!ENTITY % model.lLike ""> 
+<!ENTITY % model.lLike_sequence ""> 
+<!ENTITY % model.lLike_sequenceOptional ""> 
+<!ENTITY % model.lLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.lLike_sequenceRepeatable ""> 
+<!ENTITY % model.pLike "p"> 
+<!ENTITY % model.pLike_sequence "p"> 
+<!ENTITY % model.pLike_sequenceOptional "p?"> 
+<!ENTITY % model.pLike_sequenceOptionalRepeatable "p*"> 
+<!ENTITY % model.pLike_sequenceRepeatable "p+"> 
+<!ENTITY % model.stageLike ""> 
+<!ENTITY % model.stageLike_sequence ""> 
+<!ENTITY % model.stageLike_sequenceOptional ""> 
+<!ENTITY % model.stageLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.stageLike_sequenceRepeatable ""> 
+<!ENTITY % model.global.edit ""> 
+<!ENTITY % model.global.edit_sequence ""> 
+<!ENTITY % model.global.edit_sequenceOptional ""> 
+<!ENTITY % model.global.edit_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.global.edit_sequenceRepeatable ""> 
+<!ENTITY % model.divPart "%model.pLike;"> 
+<!ENTITY % model.divPart_sequence "%model.pLike;"> 
+<!ENTITY % model.divPart_sequenceOptional "%model.pLike;?"> 
+<!ENTITY % model.divPart_sequenceOptionalRepeatable "%model.pLike;*"> 
+<!ENTITY % model.divPart_sequenceRepeatable "%model.pLike;+"> 
+<!ENTITY % model.placeNamePart ""> 
+<!ENTITY % model.placeNamePart_sequence ""> 
+<!ENTITY % model.placeNamePart_sequenceOptional ""> 
+<!ENTITY % model.placeNamePart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.placeNamePart_sequenceRepeatable ""> 
+<!ENTITY % model.placeStateLike ""> 
+<!ENTITY % model.placeStateLike_sequence ""> 
+<!ENTITY % model.placeStateLike_sequenceOptional ""> 
+<!ENTITY % model.placeStateLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.placeStateLike_sequenceRepeatable ""> 
+<!ENTITY % model.publicationStmtPart.agency "publisher"> 
+<!ENTITY % model.publicationStmtPart.agency_sequence "publisher"> 
+<!ENTITY % model.publicationStmtPart.agency_sequenceOptional "publisher?"> 
+<!ENTITY % model.publicationStmtPart.agency_sequenceOptionalRepeatable "publisher*"> 
+<!ENTITY % model.publicationStmtPart.agency_sequenceRepeatable "publisher+"> 
+<!ENTITY % model.publicationStmtPart.detail "date |pubPlace |availability"> 
+<!ENTITY % model.publicationStmtPart.detail_sequence "date, pubPlace, availability"> 
+<!ENTITY % model.publicationStmtPart.detail_sequenceOptional "date?, pubPlace?, availability?"> 
+<!ENTITY % model.publicationStmtPart.detail_sequenceOptionalRepeatable "date*, pubPlace*, availability*"> 
+<!ENTITY % model.publicationStmtPart.detail_sequenceRepeatable "date+, pubPlace+, availability+"> 
+<!ENTITY % model.availabilityPart "licence"> 
+<!ENTITY % model.availabilityPart_sequence "licence"> 
+<!ENTITY % model.availabilityPart_sequenceOptional "licence?"> 
+<!ENTITY % model.availabilityPart_sequenceOptionalRepeatable "licence*"> 
+<!ENTITY % model.availabilityPart_sequenceRepeatable "licence+"> 
+<!ENTITY % model.quoteLike ""> 
+<!ENTITY % model.quoteLike_sequence ""> 
+<!ENTITY % model.quoteLike_sequenceOptional ""> 
+<!ENTITY % model.quoteLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.quoteLike_sequenceRepeatable ""> 
+<!ENTITY % model.attributable ""> 
+<!ENTITY % model.attributable_sequence ""> 
+<!ENTITY % model.attributable_sequenceOptional ""> 
+<!ENTITY % model.attributable_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.attributable_sequenceRepeatable ""> 
+<!ENTITY % model.respLike "author |respStmt"> 
+<!ENTITY % model.respLike_sequence "author, respStmt"> 
+<!ENTITY % model.respLike_sequenceOptional "author?, respStmt?"> 
+<!ENTITY % model.respLike_sequenceOptionalRepeatable "author*, respStmt*"> 
+<!ENTITY % model.respLike_sequenceRepeatable "author+, respStmt+"> 
+<!ENTITY % model.divWrapper ""> 
+<!ENTITY % model.divWrapper_sequence ""> 
+<!ENTITY % model.divWrapper_sequenceOptional ""> 
+<!ENTITY % model.divWrapper_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.divWrapper_sequenceRepeatable ""> 
+<!ENTITY % model.divTopPart "%model.headLike;"> 
+<!ENTITY % model.divTopPart_sequence "%model.headLike;"> 
+<!ENTITY % model.divTopPart_sequenceOptional "%model.headLike;?"> 
+<!ENTITY % model.divTopPart_sequenceOptionalRepeatable "%model.headLike;*"> 
+<!ENTITY % model.divTopPart_sequenceRepeatable "%model.headLike;+"> 
+<!ENTITY % model.divTop "%model.divTopPart;"> 
+<!ENTITY % model.divTop_sequence "%model.divTopPart;"> 
+<!ENTITY % model.divTop_sequenceOptional "%model.divTopPart;?"> 
+<!ENTITY % model.divTop_sequenceOptionalRepeatable "%model.divTopPart;*"> 
+<!ENTITY % model.divTop_sequenceRepeatable "%model.divTopPart;+"> 
+<!ENTITY % model.divBottomPart ""> 
+<!ENTITY % model.divBottomPart_sequence ""> 
+<!ENTITY % model.divBottomPart_sequenceOptional ""> 
+<!ENTITY % model.divBottomPart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.divBottomPart_sequenceRepeatable ""> 
+<!ENTITY % model.divBottom ""> 
+<!ENTITY % model.divBottom_sequence ""> 
+<!ENTITY % model.divBottom_sequenceOptional ""> 
+<!ENTITY % model.divBottom_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.divBottom_sequenceRepeatable ""> 
+<!ENTITY % model.imprintPart "publisher |pubPlace"> 
+<!ENTITY % model.imprintPart_sequence "publisher, pubPlace"> 
+<!ENTITY % model.imprintPart_sequenceOptional "publisher?, pubPlace?"> 
+<!ENTITY % model.imprintPart_sequenceOptionalRepeatable "publisher*, pubPlace*"> 
+<!ENTITY % model.imprintPart_sequenceRepeatable "publisher+, pubPlace+"> 
+<!ENTITY % model.addressLike ""> 
+<!ENTITY % model.addressLike_sequence ""> 
+<!ENTITY % model.addressLike_sequenceOptional ""> 
+<!ENTITY % model.addressLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.addressLike_sequenceRepeatable ""> 
+<!ENTITY % model.nameLike "%model.nameLike.agent;"> 
+<!ENTITY % model.nameLike_sequence "%model.nameLike.agent;"> 
+<!ENTITY % model.nameLike_sequenceOptional "%model.nameLike.agent;?"> 
+<!ENTITY % model.nameLike_sequenceOptionalRepeatable "%model.nameLike.agent;*"> 
+<!ENTITY % model.nameLike_sequenceRepeatable "%model.nameLike.agent;+"> 
+<!ENTITY % model.global ""> 
+<!ENTITY % model.global_sequence ""> 
+<!ENTITY % model.global_sequenceOptional ""> 
+<!ENTITY % model.global_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.global_sequenceRepeatable ""> 
+<!ENTITY % model.pPart.data "%model.dateLike; |%model.measureLike; |%model.nameLike;"> 
+<!ENTITY % model.pPart.data_sequence "%model.dateLike;, %model.measureLike;, %model.nameLike;"> 
+<!ENTITY % model.pPart.data_sequenceOptional "%model.dateLike;?, %model.measureLike;?, %model.nameLike;?"> 
+<!ENTITY % model.pPart.data_sequenceOptionalRepeatable "%model.dateLike;*, %model.measureLike;*, %model.nameLike;*"> 
+<!ENTITY % model.pPart.data_sequenceRepeatable "%model.dateLike;+, %model.measureLike;+, %model.nameLike;+"> 
+<!ENTITY % model.inter "%model.biblLike;"> 
+<!ENTITY % model.inter_sequence "%model.biblLike;"> 
+<!ENTITY % model.inter_sequenceOptional "%model.biblLike;?"> 
+<!ENTITY % model.inter_sequenceOptionalRepeatable "%model.biblLike;*"> 
+<!ENTITY % model.inter_sequenceRepeatable "%model.biblLike;+"> 
+<!ENTITY % model.cmc ""> 
+<!ENTITY % model.cmc_sequence ""> 
+<!ENTITY % model.cmc_sequenceOptional ""> 
+<!ENTITY % model.cmc_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.cmc_sequenceRepeatable ""> 
+<!ENTITY % model.common "%model.divPart; |%model.inter; |q"> 
+<!ENTITY % model.common_sequence "%model.divPart;, %model.inter;, q"> 
+<!ENTITY % model.common_sequenceOptional "%model.divPart;?, %model.inter;?, q?"> 
+<!ENTITY % model.common_sequenceOptionalRepeatable "%model.divPart;*, %model.inter;*, q*"> 
+<!ENTITY % model.common_sequenceRepeatable "%model.divPart;+, %model.inter;+, q+"> 
+<!ENTITY % model.phrase "%model.segLike; |%model.highlighted; |%model.pPart.data;"> 
+<!ENTITY % model.phrase_sequence "%model.segLike;, %model.highlighted;, %model.pPart.data;"> 
+<!ENTITY % model.phrase_sequenceOptional "%model.segLike;?, %model.highlighted;?, %model.pPart.data;?"> 
+<!ENTITY % model.phrase_sequenceOptionalRepeatable "%model.segLike;*, %model.highlighted;*, %model.pPart.data;*"> 
+<!ENTITY % model.phrase_sequenceRepeatable "%model.segLike;+, %model.highlighted;+, %model.pPart.data;+"> 
+<!ENTITY % model.paraPart "%model.inter; |%model.phrase;"> 
+<!ENTITY % model.paraPart_sequence "%model.inter;, %model.phrase;"> 
+<!ENTITY % model.paraPart_sequenceOptional "%model.inter;?, %model.phrase;?"> 
+<!ENTITY % model.paraPart_sequenceOptionalRepeatable "%model.inter;*, %model.phrase;*"> 
+<!ENTITY % model.paraPart_sequenceRepeatable "%model.inter;+, %model.phrase;+"> 
+<!ENTITY % model.limitedPhrase "%model.hiLike; |%model.emphLike; |%model.pPart.data;"> 
+<!ENTITY % model.limitedPhrase_sequence "%model.hiLike;, %model.emphLike;, %model.pPart.data;"> 
+<!ENTITY % model.limitedPhrase_sequenceOptional "%model.hiLike;?, %model.emphLike;?, %model.pPart.data;?"> 
+<!ENTITY % model.limitedPhrase_sequenceOptionalRepeatable "%model.hiLike;*, %model.emphLike;*, %model.pPart.data;*"> 
+<!ENTITY % model.limitedPhrase_sequenceRepeatable "%model.hiLike;+, %model.emphLike;+, %model.pPart.data;+"> 
+<!ENTITY % model.divLike "div"> 
+<!ENTITY % model.divLike_sequence "div"> 
+<!ENTITY % model.divLike_sequenceOptional "div?"> 
+<!ENTITY % model.divLike_sequenceOptionalRepeatable "div*"> 
+<!ENTITY % model.divLike_sequenceRepeatable "div+"> 
+<!ENTITY % model.divGenLike ""> 
+<!ENTITY % model.divGenLike_sequence ""> 
+<!ENTITY % model.divGenLike_sequenceOptional ""> 
+<!ENTITY % model.divGenLike_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.divGenLike_sequenceRepeatable ""> 
+<!ENTITY % model.div1Like ""> 
+<!ENTITY % model.div1Like_sequence ""> 
+<!ENTITY % model.div1Like_sequenceOptional ""> 
+<!ENTITY % model.div1Like_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.div1Like_sequenceRepeatable ""> 
+<!ENTITY % model.teiHeaderPart "encodingDesc"> 
+<!ENTITY % model.teiHeaderPart_sequence "encodingDesc"> 
+<!ENTITY % model.teiHeaderPart_sequenceOptional "encodingDesc?"> 
+<!ENTITY % model.teiHeaderPart_sequenceOptionalRepeatable "encodingDesc*"> 
+<!ENTITY % model.teiHeaderPart_sequenceRepeatable "encodingDesc+"> 
+<!ENTITY % model.sourceDescPart ""> 
+<!ENTITY % model.sourceDescPart_sequence ""> 
+<!ENTITY % model.sourceDescPart_sequenceOptional ""> 
+<!ENTITY % model.sourceDescPart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.sourceDescPart_sequenceRepeatable ""> 
+<!ENTITY % model.encodingDescPart ""> 
+<!ENTITY % model.encodingDescPart_sequence ""> 
+<!ENTITY % model.encodingDescPart_sequenceOptional ""> 
+<!ENTITY % model.encodingDescPart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.encodingDescPart_sequenceRepeatable ""> 
+<!ENTITY % model.resource "text"> 
+<!ENTITY % model.resource_sequence "text"> 
+<!ENTITY % model.resource_sequenceOptional "text?"> 
+<!ENTITY % model.resource_sequenceOptionalRepeatable "text*"> 
+<!ENTITY % model.resource_sequenceRepeatable "text+"> 
+<!ENTITY % tei_att.personal.attribute.full '
+full (yes|abb|init) "yes" '>
+
+<!ENTITY % tei_att.personal.attribute.sort '
+sort %teidata.count;  #IMPLIED'>
+<!ENTITY % tei_att.personal.attributes '%tei_att.naming.attributes;
+ %tei_att.personal.attribute.full;
+ %tei_att.personal.attribute.sort;'> 
+<!ENTITY % tei_att.calendarSystem.attribute.calendar '
+calendar CDATA  #IMPLIED'>
+<!ENTITY % tei_att.calendarSystem.attributes '
+ %tei_att.calendarSystem.attribute.calendar;'> 
+<!ENTITY % tei_att.datable.custom.attribute.when-custom '
+when-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.notBefore-custom '
+notBefore-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.notAfter-custom '
+notAfter-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.from-custom '
+from-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.to-custom '
+to-custom CDATA  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.datingPoint '
+datingPoint %teidata.pointer;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.custom.attribute.datingMethod '
+datingMethod %teidata.pointer;  #IMPLIED'>
+<!ENTITY % tei_att.datable.custom.attributes '
+ %tei_att.datable.custom.attribute.when-custom;
+ %tei_att.datable.custom.attribute.notBefore-custom;
+ %tei_att.datable.custom.attribute.notAfter-custom;
+ %tei_att.datable.custom.attribute.from-custom;
+ %tei_att.datable.custom.attribute.to-custom;
+ %tei_att.datable.custom.attribute.datingPoint;
+ %tei_att.datable.custom.attribute.datingMethod;'> 
+<!ENTITY % model.persNamePart ""> 
+<!ENTITY % model.persNamePart_sequence ""> 
+<!ENTITY % model.persNamePart_sequenceOptional ""> 
+<!ENTITY % model.persNamePart_sequenceOptionalRepeatable ""> 
+<!ENTITY % model.persNamePart_sequenceRepeatable ""> 
+<!ENTITY % tei_att.datable.iso.attribute.when-iso '
+when-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.notBefore-iso '
+notBefore-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.notAfter-iso '
+notAfter-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.from-iso '
+from-iso %teidata.temporal.iso;  #IMPLIED'>
+
+<!ENTITY % tei_att.datable.iso.attribute.to-iso '
+to-iso %teidata.temporal.iso;  #IMPLIED'>
+<!ENTITY % tei_att.datable.iso.attributes '
+ %tei_att.datable.iso.attribute.when-iso;
+ %tei_att.datable.iso.attribute.notBefore-iso;
+ %tei_att.datable.iso.attribute.notAfter-iso;
+ %tei_att.datable.iso.attribute.from-iso;
+ %tei_att.datable.iso.attribute.to-iso;'> 
+<!ENTITY % tei_att.lexicographic.normalized.attribute.norm '
+norm %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.lexicographic.normalized.attribute.orig '
+orig %teidata.text;  #IMPLIED'>
+<!ENTITY % tei_att.lexicographic.normalized.attributes '
+ %tei_att.lexicographic.normalized.attribute.norm;
+ %tei_att.lexicographic.normalized.attribute.orig;'> 
+<!ENTITY % tei_att.global.analytic.attribute.ana '
+ana CDATA  #IMPLIED'>
+<!ENTITY % tei_att.global.analytic.attributes '
+ %tei_att.global.analytic.attribute.ana;'> 
+<!ENTITY % tei_att.linguistic.attribute.lemma '
+lemma %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.linguistic.attribute.lemmaRef '
+lemmaRef %teidata.pointer;  #IMPLIED'>
+
+<!ENTITY % tei_att.linguistic.attribute.pos '
+pos %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.linguistic.attribute.msd '
+msd %teidata.text;  #IMPLIED'>
+
+<!ENTITY % tei_att.linguistic.attribute.join '
+join (no|left|right|both|overlap) #IMPLIED'>
+<!ENTITY % tei_att.linguistic.attributes '%tei_att.lexicographic.normalized.attributes;
+ %tei_att.linguistic.attribute.lemma;
+ %tei_att.linguistic.attribute.lemmaRef;
+ %tei_att.linguistic.attribute.pos;
+ %tei_att.linguistic.attribute.msd;
+ %tei_att.linguistic.attribute.join;'> 
+<!-- start rest of patterns -->
+
+<!ENTITY % macro.paraContent '(#PCDATA|%model.paraPart;)*' >
+
+<!ENTITY % macro.phraseSeq '(#PCDATA|_DUMMY_model.gLike|_DUMMY_model.attributable|%model.phrase;|_DUMMY_model.global)*' >
+
+<!ENTITY % macro.phraseSeq.limited '(#PCDATA|%model.limitedPhrase;|_DUMMY_model.global)*' >
+
+<!ENTITY % macro.specialPara '(#PCDATA|_DUMMY_model.gLike|%model.phrase;|%model.inter;|%model.divPart;|_DUMMY_model.global)*' >
+
+<!-- end patterns -->
+
+<!-- start elements -->
+
+<!--doc:(TEI document) contains a single TEI-conformant document, combining a single TEI header with one or more members of the model.resource class. Multiple TEI elements may be combined within a TEI (or teiCorpus) element. [4. Default Text Structure 16.1. Varieties of Composite Text] -->
+<!ELEMENT TEI ((teiHeader,(((%model.resource;)+,(TEI)*)|(TEI)+)))>
+<!ATTLIST TEI xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST TEI
+ %tei_att.global.attributes;
+ %tei_att.typed.attributes;
+xmlns:ud CDATA  #IMPLIED
+version %teidata.version;  #IMPLIED >
+<!ATTLIST TEI xsi:schemaLocation CDATA #IMPLIED
+ xmlns:xsi CDATA #FIXED 'http://www.w3.org/2001/XMLSchema-instance'
+ >
+<!--doc:(author) in a bibliographic reference, contains the name(s) of an author, personal or corporate, of a work; for example in the same form as that provided by a recognized bibliographic name authority. [3.12.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement] -->
+<!ELEMENT author %macro.phraseSeq;>
+<!ATTLIST author xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST author
+ %tei_att.global.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.naming.attributes; >
+<!--doc:(availability) supplies information about the availability of a text, for example any restrictions on its use or distribution, its copyright status, any licence applying to it, etc. [2.2.4. Publication, Distribution, Licensing, etc.] -->
+<!ELEMENT availability (%model.availabilityPart;|%model.pLike;)+>
+<!ATTLIST availability xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST availability
+ %tei_att.global.attributes;
+ %tei_att.declarable.attributes;
+status (free|unknown|restricted) #IMPLIED >
+<!--doc:(structured bibliographic citation) contains a structured bibliographic citation, in which only bibliographic sub-elements appear and in a specified order. [3.12.1. Methods of Encoding Bibliographic References and Lists of References 2.2.7. The Source Description 16.3.2. Declarable Elements] -->
+<!ELEMENT biblStruct (((analytic)*,(monogr,(series)*)+,(_DUMMY_model.noteLike|_DUMMY_model.ptrLike|relatedItem|citedRange)*))>
+<!ATTLIST biblStruct xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST biblStruct
+ %tei_att.global.attributes;
+ %tei_att.canonical.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.declarable.attributes;
+ %tei_att.docStatus.attributes;
+ %tei_att.sortable.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:(text body) contains the whole body of a single unitary text, excluding any front or back matter. [4. Default Text Structure] -->
+<!ELEMENT body (((_DUMMY_model.global)*,((%model.divTop;),(_DUMMY_model.global|%model.divTop;)*)?,((_DUMMY_model.divGenLike),(_DUMMY_model.global|_DUMMY_model.divGenLike)*)?,(((%model.divLike;),(_DUMMY_model.global|_DUMMY_model.divGenLike)*)+|((_DUMMY_model.div1Like),(_DUMMY_model.global|_DUMMY_model.divGenLike)*)+|(((schemaSpec|%model.common;),(_DUMMY_model.global)*)+,(((%model.divLike;),(_DUMMY_model.global|_DUMMY_model.divGenLike)*)+|((_DUMMY_model.div1Like),(_DUMMY_model.global|_DUMMY_model.divGenLike)*)+)?)),((_DUMMY_model.divBottom),(_DUMMY_model.global)*)*))>
+<!ATTLIST body xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST body
+ %tei_att.global.attributes;
+ %tei_att.declaring.attributes; >
+<!--doc:(date) contains a date in any format. [3.6.4. Dates and Times 2.2.4. Publication, Distribution, Licensing, etc. 2.6. The Revision Description 3.12.2.4. Imprint, Size of a Document, and Reprint Information 16.2.3. The Setting Description 14.4. Dates] -->
+<!ELEMENT date (#PCDATA|_DUMMY_model.gLike|%model.phrase;|_DUMMY_model.global)*>
+<!ATTLIST date xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST date
+ %tei_att.global.attributes;
+ %tei_att.calendarSystem.attributes;
+ %tei_att.canonical.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.dimensions.attributes;
+ %tei_att.editLike.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:(text division) contains a subdivision of the front, body, or back of a text. [4.1. Divisions of the Body] -->
+<!ELEMENT div (((%model.divTop;|_DUMMY_model.global)*,((((%model.divLike;|_DUMMY_model.divGenLike),(_DUMMY_model.global)*)+|(((schemaSpec|%model.common;),(_DUMMY_model.global)*)+,((%model.divLike;|_DUMMY_model.divGenLike),(_DUMMY_model.global)*)*)),((_DUMMY_model.divBottom),(_DUMMY_model.global)*)*)?))>
+<!ATTLIST div xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST div
+ %tei_att.global.attributes;
+ %tei_att.declaring.attributes;
+ %tei_att.divLike.attributes;
+ %tei_att.placement.attributes;
+ %tei_att.typed.attributes;
+ %tei_att.written.attributes; >
+<!--doc:(encoding description) documents the relationship between an electronic text and the source or sources from which it was derived. [2.3. The Encoding Description 2.1.1. The TEI Header and Its Components] -->
+<!ELEMENT encodingDesc (_DUMMY_model.encodingDescPart|%model.pLike;)+>
+<!ATTLIST encodingDesc xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST encodingDesc
+ %tei_att.global.attributes; >
+<!--doc:(file description) contains a full bibliographic description of an electronic file. [2.2. The File Description 2.1.1. The TEI Header and Its Components] -->
+<!ELEMENT fileDesc (((titleStmt,(editionStmt)?,(extent)?,publicationStmt,(seriesStmt)*,(notesStmt)?),(sourceDesc)+))>
+<!ATTLIST fileDesc xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST fileDesc
+ %tei_att.global.attributes; >
+<!--doc:(foreign) identifies a word or phrase as belonging to some language other than that of the surrounding text. [3.3.2.1. Foreign Words or Expressions] -->
+<!ELEMENT foreign %macro.phraseSeq;>
+<!ATTLIST foreign xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST foreign
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes; >
+<!--doc:(heading) contains any type of heading, for example the title of a section, or the heading of a list, glossary, manuscript description, etc. [4.2.1. Headings and Trailers] -->
+<!ELEMENT head (#PCDATA|lg|_DUMMY_model.gLike|%model.phrase;|%model.inter;|_DUMMY_model.lLike|_DUMMY_model.global)*>
+<!ATTLIST head xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST head
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.placement.attributes;
+ %tei_att.typed.attributes;
+ %tei_att.written.attributes; >
+<!--doc:(identifier) contains an identifier or name for an object of some kind in a formal language. ident is used for tokens such as variable names, class names, type names, function names etc. in formal programming languages. [23.1.1. Phrase Level Terms] -->
+<!ELEMENT ident (#PCDATA)>
+<!ATTLIST ident xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST ident
+ %tei_att.global.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:groups information relating to the publication or distribution of a bibliographic item. [3.12.2.4. Imprint, Size of a Document, and Reprint Information] -->
+<!ELEMENT imprint (((classCode|catRef)*,((%model.imprintPart;|%model.dateLike;),(respStmt)*,(_DUMMY_model.global)*)+))>
+<!ATTLIST imprint xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST imprint
+ %tei_att.global.attributes; >
+<!--doc:contains information about a licence or other legal agreement applicable to the text. [2.2.4. Publication, Distribution, Licensing, etc.] -->
+<!ELEMENT licence %macro.specialPara;>
+<!ATTLIST licence xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST licence
+ %tei_att.global.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.pointing.attributes; >
+<!--doc:(measure) contains a word or phrase referring to some quantity of an object or commodity, usually comprising a number, a unit, and a commodity name. [3.6.3. Numbers and
+Measures] -->
+<!ELEMENT measure %macro.phraseSeq;>
+<!ATTLIST measure xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST measure
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.measurement.attributes;
+ %tei_att.ranging.attributes;
+ %tei_att.typed.attribute.subtype;
+type %teidata.enumerated;  #IMPLIED >
+<!--doc:(monographic level) contains bibliographic elements describing an item (e.g. a book or journal) published as an independent item (i.e. as a separate physical object). [3.12.2.1. Analytic, Monographic, and Series Levels] -->
+<!ELEMENT monogr (((((author|editor|meeting|respStmt),(author|editor|meeting|respStmt)*,(title)+,(_DUMMY_model.ptrLike|idno|textLang|editor|respStmt)*)|((title|_DUMMY_model.ptrLike|idno)+,(textLang|author|editor|meeting|respStmt)*)|(authority,idno))?,(availability)*,(_DUMMY_model.noteLike)*,(edition,(idno|_DUMMY_model.ptrLike|editor|sponsor|funder|respStmt)*)*,imprint,(imprint|extent|biblScope)*))>
+<!ATTLIST monogr xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST monogr
+ %tei_att.global.attributes; >
+<!--doc:(name, proper noun) contains a proper noun or noun phrase. [3.6.1. Referring Strings] -->
+<!ELEMENT name %macro.phraseSeq;>
+<!ATTLIST name xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST name
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.editLike.attributes;
+ %tei_att.personal.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:(organization name) contains an organizational name. [14.2.2. Organizational Names] -->
+<!ELEMENT orgName %macro.phraseSeq;>
+<!ATTLIST orgName xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST orgName
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.editLike.attributes;
+ %tei_att.personal.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:(paragraph) marks paragraphs in prose. [3.1. Paragraphs 7.2.5. Speech Contents] -->
+<!ELEMENT p %macro.paraContent;>
+<!ATTLIST p xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST p
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.declaring.attributes;
+ %tei_att.fragmentable.attributes;
+ %tei_att.written.attributes; >
+<!--doc:(punctuation character) contains a character or string of characters regarded as constituting a single punctuation mark. [18.1.2. Below the Word Level 18.4.2. Lightweight Linguistic Annotation] -->
+<!ELEMENT pc (#PCDATA|_DUMMY_model.gLike|c|_DUMMY_model.pPart.edit)*>
+<!ATTLIST pc xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST pc
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.linguistic.attributes;
+ %tei_att.segLike.attributes;
+ %tei_att.typed.attributes;
+force (strong|weak|inter) #IMPLIED
+unit %teidata.enumerated;  #IMPLIED
+pre %teidata.truthValue;  #IMPLIED >
+<!--doc:(personal name) contains a proper noun or proper-noun phrase referring to a person, possibly including one or more of the person's forenames, surnames, honorifics, added names, etc. [14.2.1. Personal Names] -->
+<!ELEMENT persName %macro.phraseSeq;>
+<!ATTLIST persName xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST persName
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.editLike.attributes;
+ %tei_att.personal.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:(publication place) contains the name of the place where a bibliographic item was published. [3.12.2.4. Imprint, Size of a Document, and Reprint Information] -->
+<!ELEMENT pubPlace %macro.phraseSeq;>
+<!ATTLIST pubPlace xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST pubPlace
+ %tei_att.global.attributes;
+ %tei_att.naming.attributes; >
+<!--doc:(publication statement) groups information concerning the publication or distribution of an electronic or other text. [2.2.4. Publication, Distribution, Licensing, etc. 2.2. The File Description] -->
+<!ELEMENT publicationStmt (((%model.publicationStmtPart.agency;),(%model.publicationStmtPart.detail;)*)+|(%model.pLike;)+)>
+<!ATTLIST publicationStmt xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST publicationStmt
+ %tei_att.global.attributes; >
+<!--doc:(publisher) provides the name of the organization responsible for the publication or distribution of a bibliographic item. [3.12.2.4. Imprint, Size of a Document, and Reprint Information 2.2.4. Publication, Distribution, Licensing, etc.] -->
+<!ELEMENT publisher %macro.phraseSeq;>
+<!ATTLIST publisher xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST publisher
+ %tei_att.global.attributes;
+ %tei_att.canonical.attributes; >
+<!--doc:(quoted) contains material which is distinguished from the surrounding text using quotation marks or a similar method, for any one of a variety of reasons including, but not limited to: direct speech or thought, technical terms or jargon, authorial distance, quotations from elsewhere, and passages that are mentioned but not used. [3.3.3. Quotation] -->
+<!ELEMENT q %macro.specialPara;>
+<!ATTLIST q xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST q
+ %tei_att.global.attributes;
+ %tei_att.ascribed.directed.attributes;
+ %tei_att.cmc.attributes;
+type %teidata.enumerated;  #IMPLIED >
+<!--doc:(responsibility) contains a phrase describing the nature of a person's intellectual responsibility, or an organization's role in the production or distribution of a work. [3.12.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement 2.2.2. The Edition Statement 2.2.5. The Series Statement] -->
+<!ELEMENT resp %macro.phraseSeq.limited;>
+<!ATTLIST resp xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST resp
+ %tei_att.global.attributes;
+ %tei_att.canonical.attributes;
+ %tei_att.datable.attributes; >
+<!--doc:(statement of responsibility) supplies a statement of responsibility for the intellectual content of a text, edition, recording, or series, where the specialized elements for authors, editors, etc. do not suffice or do not apply. May also be used to encode information about individuals or organizations which have played a role in the production or distribution of a bibliographic work. [3.12.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement 2.2.2. The Edition Statement 2.2.5. The Series Statement] -->
+<!ELEMENT respStmt (((((resp)+,(%model.nameLike.agent;)+)|((%model.nameLike.agent;)+,(resp)+)),(note)*))>
+<!ATTLIST respStmt xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST respStmt
+ %tei_att.global.attributes;
+ %tei_att.canonical.attributes; >
+<!--doc:(s-unit) contains a sentence-like division of a text. [18.1. Linguistic Segment Categories 8.4.1. Segmentation] -->
+<!ELEMENT s %macro.phraseSeq;>
+<!ATTLIST s xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST s
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.notated.attributes;
+ %tei_att.segLike.attributes;
+ %tei_att.typed.attributes; >
+<!--doc:(source description) describes the source(s) from which an electronic text was derived or generated, typically a bibliographic description in the case of a digitized text, or a phrase such as born digital for a text which has no previous existence. [2.2.7. The Source Description] -->
+<!ELEMENT sourceDesc ((%model.pLike;)+|(%model.biblLike;|_DUMMY_model.sourceDescPart|_DUMMY_model.listLike)+)>
+<!ATTLIST sourceDesc xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST sourceDesc
+ %tei_att.global.attributes;
+ %tei_att.declarable.attributes; >
+<!--doc:(TEI header) supplies descriptive and declarative metadata associated with a digital resource or set of resources. [2.1.1. The TEI Header and Its Components 16.1. Varieties of Composite Text] -->
+<!ELEMENT teiHeader ((fileDesc,(%model.teiHeaderPart;)*,(revisionDesc)?))>
+<!ATTLIST teiHeader xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST teiHeader
+ %tei_att.global.attributes; >
+<!--doc:(text) contains a single text of any kind, whether unitary or composite, for example a poem or drama, a collection of essays, a novel, a dictionary, or a corpus sample. [4. Default Text Structure 16.1. Varieties of Composite Text] -->
+<!ELEMENT text (((_DUMMY_model.global)*,(front,(_DUMMY_model.global)*)?,(body|group),(_DUMMY_model.global)*,(back,(_DUMMY_model.global)*)?))>
+<!ATTLIST text xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST text
+ %tei_att.global.attributes;
+ %tei_att.declaring.attributes;
+ %tei_att.typed.attributes;
+ %tei_att.written.attributes; >
+<!--doc:(title) contains a title for any kind of work. [3.12.2.2. Titles, Authors, and Editors 2.2.1. The Title Statement 2.2.5. The Series Statement] -->
+<!ELEMENT title %macro.paraContent;>
+<!ATTLIST title xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST title
+ %tei_att.global.attributes;
+ %tei_att.canonical.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.datable.attributes;
+ %tei_att.typed.attribute.subtype;
+type %teidata.enumerated;  #IMPLIED
+level (a|m|j|s|u) #IMPLIED >
+<!--doc:(title statement) groups information about the title of a work and those responsible for its content. [2.2.1. The Title Statement 2.2. The File Description] -->
+<!ELEMENT titleStmt (((title)+,(%model.respLike;)*))>
+<!ATTLIST titleStmt xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST titleStmt
+ %tei_att.global.attributes; >
+<!--doc:(word) represents a grammatical (not necessarily orthographic) word. [18.1. Linguistic Segment Categories 18.4.2. Lightweight Linguistic Annotation] -->
+<!ELEMENT w (#PCDATA|_DUMMY_model.gLike|seg|w|m|c|pc|_DUMMY_model.global|_DUMMY_model.lPart|%model.hiLike;|_DUMMY_model.pPart.edit)*>
+<!ATTLIST w xmlns CDATA "http://www.tei-c.org/ns/1.0">
+<!ATTLIST w
+ %tei_att.global.attributes;
+ %tei_att.cmc.attributes;
+ %tei_att.linguistic.attributes;
+ %tei_att.notated.attributes;
+ %tei_att.segLike.attributes;
+ %tei_att.typed.attributes;
+ud:Definite CDATA  #IMPLIED
+ud:Number CDATA  #IMPLIED
+ud:PronType CDATA  #IMPLIED
+ud:Mood CDATA  #IMPLIED
+ud:Person CDATA  #IMPLIED
+ud:Tense CDATA  #IMPLIED
+ud:Number_psor CDATA  #IMPLIED
+ud:Poss CDATA  #IMPLIED
+ud:VerbForm CDATA  #IMPLIED
+ud:Voice CDATA  #IMPLIED
+ud:NumType CDATA  #IMPLIED
+ud:Polarity CDATA  #IMPLIED
+ud:Reflex CDATA  #IMPLIED >
+<!-- end elements -->

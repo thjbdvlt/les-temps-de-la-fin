@@ -1,8 +1,8 @@
 tei = les-temps-de-la-fin.tei
-odd = schema.odd
-rnc = schema.rnc
+schema_name = tei-ud
 
 .PHONY: validate
 
 validate:
-	jing -c $(rnc) $(tei)
+	jing -c $(schema_name).rnc $(tei)
+	xmlstarlet validate --err --dtd $(schema_name).dtd $(tei)

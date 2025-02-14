@@ -18,34 +18,36 @@
     <body>
       <schemaSpec ident="tei-ud" start="TEI">
         <!-- header -->
+        <moduleRef key="core" include="author biblStruct date foreign head imprint name measure monogr p pubPlace publisher q resp respStmt title"/>
         <moduleRef key="header" include="availability encodingDesc fileDesc licence publicationStmt sourceDesc teiHeader titleStmt"/>
-        <moduleRef key="core" include="author biblStruct date head imprint monogr p pubPlace publisher resp respStmt title"/>
         <moduleRef key="textstructure" include="TEI text body div"/>
         <moduleRef key="namesdates" include="persName orgName"/>
+        <!-- element for teiHeader documentation -->
+        <moduleRef key="tagdocs" include="ident"/>
         <!-- text -->
         <moduleRef key="tei"/>
         <!-- words, punctuation, sentence, phrase -->
-        <moduleRef key="analysis" include="w pc measure date s"/>
+        <moduleRef key="analysis" include="w pc s"/>
         <!-- word attributes: @pos, @lemma, @msd -->
         <classRef key="att.linguistic"/>
         <!-- UD features as word attributes: @ud:Tense, @ud:Mood -->
         <elementSpec ident="w" mode="change">
           <attList>
-            <attDef mode="add" ident="Definite" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Definite" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Definite' from Universal features.</desc>
               <valList>
                 <valItem ident="Def"/>
                 <valItem ident="Ind"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Number" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Number" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Number' from Universal features.</desc>
               <valList>
                 <valItem ident="Plur"/>
                 <valItem ident="Sing"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="PronType" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:PronType" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'PronType' from Universal features.</desc>
               <valList>
                 <valItem ident="Art"/>
@@ -57,7 +59,7 @@
                 <valItem ident="Rel"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Mood" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Mood" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Mood' from Universal features.</desc>
               <valList>
                 <valItem ident="Cnd"/>
@@ -66,7 +68,7 @@
                 <valItem ident="Sub"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Person" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Person" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Person' from Universal features.</desc>
               <valList>
                 <valItem ident="1"/>
@@ -74,7 +76,7 @@
                 <valItem ident="3"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Tense" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Tense" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Tense' from Universal features.</desc>
               <valList>
                 <valItem ident="Fut"/>
@@ -83,51 +85,57 @@
                 <valItem ident="Pres"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Number_psor" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Number_psor" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Number[psor]' from Universal features.</desc>
               <valList>
                 <valItem ident="Plur"/>
                 <valItem ident="Sing"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Poss" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Poss" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Poss' from Universal features.</desc>
               <valList>
                 <valItem ident="Yes"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="VerbForm" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:VerbForm" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'VerbForm' from Universal features.</desc>
               <valList>
                 <valItem ident="Inf"/>
                 <valItem ident="Part"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Voice" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Voice" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Voice' from Universal features.</desc>
               <valList>
                 <valItem ident="Pass"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="NumType" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:NumType" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'NumType' from Universal features.</desc>
               <valList>
                 <valItem ident="Card"/>
                 <valItem ident="Ord"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Polarity" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Polarity" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Polarity' from Universal features.</desc>
               <valList>
                 <valItem ident="Neg"/>
               </valList>
             </attDef>
-            <attDef mode="add" ident="Reflex" ns="https://universaldependencies.org/u/feat">
+            <attDef mode="add" ident="ud:Reflex" ns="https://universaldependencies.org/u/feat">
               <desc>Morphological feature 'Reflex' from Universal features.</desc>
               <valList>
                 <valItem ident="Yes"/>
               </valList>
             </attDef>
+          </attList>
+        </elementSpec>
+        <!-- add the 'ud:' namespace definition to the TEI element -->
+        <elementSpec ident="TEI" mode="change">
+          <attList>
+            <attDef mode="add" ident="xmlns:ud"/>
           </attList>
         </elementSpec>
       </schemaSpec>

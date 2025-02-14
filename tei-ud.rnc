@@ -100,7 +100,7 @@ Header = element teiHeader {
                 | element title { text }
                 | element foreign { text }
                 | element q { text }
-                | element code { text }
+                | element ident { attribute type { text }?, text }
             )+ }+
         }
     }
