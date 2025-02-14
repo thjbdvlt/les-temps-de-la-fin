@@ -8,6 +8,10 @@
 
   <xsl:output method="xml"/>
 
+  <!-- TODO: 
+  verbs only, and only verbform + mood + tense, and reduced labels
+  -->
+
   <xsl:template match="tei:w">
     <xsl:copy>
       <xsl:attribute name="msd">
