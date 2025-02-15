@@ -1,5 +1,7 @@
-tei = les-temps-de-la-fin.tei
-no-ud = les-temps-de-la-fin-no-ud.tei
+name = les-temps-de-la-fin
+tei = $(name).tei
+no-ud = $(name)-no-ud.tei
+html = $(name).html
 
 schema_name = tei-ud
 dtd = $(schema_name).dtd
@@ -9,11 +11,14 @@ rnc = $(schema_name).rnc
 py = venv/bin/python3
 pip = venv/bin/pip3
 
-
 .PHONY: all validate clean
 
-transform: ud-to-msd-verbs.xsl $(tei)
-	xmlstarlet tr $^
+# $(html): tohtml.py $(tei) style.css
+# 	make venv
+# 	$(py) $^ $@
+
+$(html): tohtml.xsl $(tei)
+	xmlstarlet tr $^ > $@
 
 all: clean $(no-ud) validate
 
@@ -33,4 +38,4 @@ $(tei):
 $(ud_to_msd):
 
 clean:
-	rm -rf __pycache__ $(no-ud)
+	rm -rf __pycache__ $(no-ud) $(html)

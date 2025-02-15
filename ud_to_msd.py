@@ -49,7 +49,7 @@ def ud_to_msd(el: Element) -> None:
 def main(fp_in: str, fp_out: str) -> None:
     """Update the attributes of every words in a document."""
     x = etree.parse(fp_in)
-    for i in x.findall(".//w", NS):
+    for i in x.iterfind(".//w", NS):
         ud_to_msd(i)
     x.write(fp_out, encoding="utf-8")
 

@@ -1,0 +1,36 @@
+svg {
+    border: 1px solid black;
+}
+
+div.svg-container {
+    width: 100%;
+    height: 200px;
+}
+
+circle {
+    r: 3px;
+    fill: black;
+}
+
+.verb {
+    font-weight: bold;
+    font-style: normal;
+}
+.aux {
+    font-weight: normal;
+    font-style: normal;
+}
+
+.t-imp {
+    color: blue;
+}
+.t-past {
+    color: skyblue;
+}
+.t-pres,.t-fut {
+    color: red;
+}
+.m-cnd {
+    color: green;
+    font-style: italic;
+}

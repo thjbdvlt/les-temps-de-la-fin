@@ -2467,7 +2467,7 @@
               <pc>.</pc>
             </s>
             <s>
-              <w lemma="ðc'" pos="PROPN">ðC’</w>
+              <w lemma="c'" pos="PROPN">C’</w>
               <w lemma="être" pos="VERB" ud:Mood="Ind" ud:Number="Sing" ud:Person="3" ud:Tense="Imp">était</w>
               <w lemma="à" pos="ADP">à</w>
               <w lemma="qui" pos="PRON" ud:PronType="Rel">qui</w>
@@ -13951,11 +13951,11 @@
               <w lemma="par" pos="ADP">par</w>
               <w lemma="le·a" pos="DET" ud:Definite="Def" ud:Number="Sing" ud:PronType="Art">la</w>
               <w lemma="formule" pos="NOUN" ud:Number="Sing">formule</w>
-              <pc>==</pc>
+              <pc>[...]</pc>
               <pc>,</pc>
               <w lemma="dans" pos="ADP">dans</w>
               <w lemma="laquelle" pos="PRON" ud:Number="Sing" ud:Person="3" ud:PronType="Rel">laquelle</w>
-              <pc>==</pc>
+              <pc>[...]</pc>
               <w lemma="être" pos="VERB" ud:Mood="Ind" ud:Number="Sing" ud:Person="3" ud:Tense="Pres">est</w>
               <w lemma="le·a" pos="DET" ud:Definite="Def" ud:Number="Sing" ud:PronType="Art">la</w>
               <w lemma="masse" pos="NOUN" ud:Number="Sing">masse</w>
@@ -13964,7 +13964,7 @@
               <w lemma="en" pos="ADP">en</w>
               <w lemma="kilogramme" pos="NOUN" ud:Number="Plur">kilogrammes</w>
               <w lemma="et" pos="CCONJ">et</w>
-              <pc>==</pc>
+              <pc>[...]</pc>
               <w lemma="sa" pos="DET" ud:Number="Sing" ud:Number_psor="Sing" ud:Person="3" ud:Poss="Yes">sa</w>
               <w lemma="vitesse" pos="NOUN" ud:Number="Sing">vitesse</w>
               <w lemma="en" pos="ADP">en</w>
@@ -60654,7 +60654,7 @@
               <w lemma="le·a" pos="DET" ud:Definite="Def" ud:Number="Plur" ud:PronType="Art">les</w>
               <w lemma="falaise" pos="NOUN" ud:Number="Plur">falaises</w>
               <pc>,</pc>
-              <pc>==</pc>
+              <pc>[...]</pc>
               <w lemma="avoir" pos="AUX" ud:Mood="Ind" ud:Number="Sing" ud:Person="3" ud:Tense="Imp">avait</w>
               <w lemma="diminuer" pos="VERB" ud:Tense="Past" ud:VerbForm="Part">diminué</w>
               <w lemma="le·a" pos="DET" ud:Definite="Def" ud:Number="Sing" ud:PronType="Art">le</w>
