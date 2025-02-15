@@ -7,18 +7,19 @@ schema_name = tei-ud
 dtd = $(schema_name).dtd
 odd = $(schema_name).odd
 rnc = $(schema_name).rnc
+css = style.css
 
 py = venv/bin/python3
 pip = venv/bin/pip3
 
 .PHONY: all validate clean
 
-# $(html): tohtml.py $(tei) style.css
-# 	make venv
-# 	$(py) $^ $@
+$(html): tohtml.py $(tei)
+	$(py) $^ $(css) $@
 
-$(html): tohtml.xsl $(tei)
-	xmlstarlet tr $^ > $@
+
+# $(html): tohtml.xsl $(tei)
+# 	xmlstarlet tr $^ > $@
 
 all: clean $(no-ud) validate
 

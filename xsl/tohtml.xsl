@@ -141,4 +141,11 @@
     </xsl:copy>
   </xsl:template>
 
+  <!-- q element is mainly use for dialogs -->
+  <xsl:template match="tei:q">
+    <xsl:copy>
+      <xsl:apply-templates select="node()"/>
+    </xsl:copy>
+  </xsl:template>
+
 </xsl:stylesheet>

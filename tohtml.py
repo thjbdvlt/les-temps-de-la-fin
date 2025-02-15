@@ -4,10 +4,40 @@ from lxml.etree import QName, ElementTree, Element, SubElement
 import matplotlib.pyplot as plt
 import typer
 import re
+from ns import NS, NS_TEI, NS_UD
 
-NS_TEI = "http://www.tei-c.org/ns/1.0"
-NS_UD = "https://universaldependencies.org/u/feat"
-NS = {None: NS_TEI, "ud": NS_UD}
+FP_REMOVE_S = "xsl/remove_s.xsl"
+FP_TOHTML = "xsl/tohtml.xsl"
+Q_START = "«"
+Q_END = "»"
+
+
+def apply_xslt(fp_xslt: str, tree: ElementTree) -> ElementTree:
+    xsl_remove_s = etree.parse(fp_xslt)
+    xsl_remove_s = etree.XSLT(xsl_remove_s)
+    tree = xsl_remove_s(tree)
+    return tree
+
+
+def add_q(tree: Element) -> None:
+    """Add <q> elements."""
+    paragraphs = tree.iterfind(".//p", NS)
+    for p in paragraphs:
+        end = False
+        while not end:
+            for n, i in enumerate(p):
+                if i.text == Q_END:
+                    for n_prev, prev in enumerate(reversed(p)):
+                        if prev.text == Q_START:
+                            n_prev = n - n_prev
+                            q = Element("q", {})
+                            for w in p[n_prev:n]:
+                                q.append(w)
+                            p.insert(n_prev, q)
+                    break
+            end = True
+        if p[0].text == Q_START:
+            p.tag = 'blockquote'
 
 
 def make_plot_from_verb_ud_attr(
@@ -127,16 +157,19 @@ def make_svg_curve_from_verb(
 #     values_down: tuple,
 # )
 
+
 def main(fp_in: str, fp_css: str, fp_out: str) -> None:
     tree = etree.parse(fp_in)
+    tree = apply_xslt(FP_REMOVE_S, tree)
+    hdoc = apply_xslt(FP_TOHTML, tree)
     hdoc = make_html_document("la fin du monde", fp_css)
-    make_svg_curve_from_verb(
-        tree,
-        hdoc,
-        "Tense",
-        ("Past", "Imp"),
-        ("Pres", "Fut"),
-    )
+    # make_svg_curve_from_verb(
+    #     tree,
+    #     hdoc,
+    #     "Tense",
+    #     ("Past", "Imp"),
+    #     ("Pres", "Fut"),
+    # )
     with open(fp_out, "bw") as f:
         f.write(
             html.tostring(hdoc, encoding="utf-8", pretty_print=True)
