@@ -1,7 +1,7 @@
 name = les-temps-de-la-fin
 tei = $(name).tei
 no-ud = $(name)-no-ud.tei
-html = $(name).html
+html = $(name).html cnd.html fut.html past.html pres.html imp.html
 
 schema_name = tei-ud
 dtd = $(schema_name).dtd

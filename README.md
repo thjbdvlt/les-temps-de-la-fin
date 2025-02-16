@@ -1,11 +1,14 @@
-...
+# Les temps verbaux de _La fin du monde_ (Camille Flammarion)
 
-Ainsi, si l'on clique sur la première pique de la courbe, la première modification significative, on arrivera à peu près vers un paragraphe très court, qui indique effectivement un changement dans la narration:
+Ce dépôt contient une version encodée en XML-TEI de _La fin du monde_, un roman scientifique de l'astronome Camille Flammarion.
 
-> Mais remontons au début.
+## Contenu du dépôt
 
-
-todo
-----
-
-une amélioration possible et souhaitable: les citations, p.ex. `<q>`. mais cela amène plusieurs complications, puisque une citation peut se trouver dans une phrase, ou en inclure plusieurs, voir chevaucher plusieurs phrases sans les contenir entièrement. du reste, elles peuvent aussi contenir des paragraphes entiers.
+- une version électronique du texte de _La fin du monde_, sans les paratextes mais avec les annotations morphologiques de tous les mots du texte, au format XML et accordement aux _guidelines_ TEI (avec quelques modifications, décrites dans le `teiHeader`): [les-temps-de-la-fin.tei](les-temps-de-la-fin.tei). Les enjeux et les choix de l'encodage y sont décrits (dans le `teiHeader`).
+- plusieurs schémas:
+    - un ODD.
+    - un fichier Relax NG`.rng` qui exprime les mêmes règles que l'ODD et permet de valider le fichier contre la TEI à l'aide d'outil en ligne de commande comme `jing` ou `xmlstarlet` (voir le `makefile`).
+    - un fichier RelaxNG compact, bien plus strict et destiné surtout à exprimer la structure (très simple) du fichier.
+- des scripts Python et un `makefile` permettant de produire plusieurs fichiers:
+    - des fichiers HTML qui propose une colorisation des verbes en fonction des temps et modes verbaux, ainsi que des espèces d'_indices_ ou de tables des matières qui représentent le texte à partir des temps verbaux et permet (en cliquant sur les SVG), d'aller lire directement tel ou tel passage où, par exemple, l'usage du futur (rouge) est particulièrement dense.
+    - un autre fichier TEI qui déplace les propriétés morphologiques (exprimées dans le fichier principal dans des attributs additionnels) dans l'attribut `@msd`.

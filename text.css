@@ -46,9 +46,22 @@ body div.text {
     margin-right: auto;
 }
 
-body div.indexes {
+body {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+body div {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body div#index {
     align: left;
-    width: 95%
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
 /* simple text font */
@@ -84,6 +97,11 @@ li {
     padding: 0;
     margin: 0;
 }
+li#haut {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
 nav ul {
     padding: 5px;
     margin: 5px;
@@ -92,8 +110,12 @@ nav ul {
 h1 {
     color: skyblue;
     font-family: Helvetica;
+    padding-left: 10px;
 }
 h1 i {
     color: red;
     font-family: Times;
+}
+h1 span {
+    font-size: 90%;
 }

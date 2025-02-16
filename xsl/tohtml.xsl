@@ -44,10 +44,11 @@
       <body>
         <nav>
           <ul>
+            <li id="haut"><a href="#index">haut</a></li>
           </ul>
         </nav>
-        <h1>Les temps verbaux de <i class="title">La fin du monde</i> (Camille Flammarion)</h1>
-        <div id="indexes"></div>
+        <h1>Les temps verbaux de <i class="title">La fin du monde</i> <br/><span id="camille">(Camille Flammarion)</span></h1>
+        <div id="index"></div>
         <div class="text">
           <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/node()"/>
         </div>

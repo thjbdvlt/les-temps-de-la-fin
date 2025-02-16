@@ -80,70 +80,61 @@ def init_svg(pts: list[tuple], h: int, add_atts: dict = None):
     return Element("svg", attrs)
 
 
-def dstr(d: dict) -> None:
-    """`str(value)` all values in a dict."""
-    for i in d:
-        d[i] = str(d[i])
-    return d
-
-
-def link(svg: Element, tag: str, attrs: dict, pid) -> Element:
-    """Create an Element enclosed within an <a> referencing to a <p>."""
-    a = SubElement(svg, "a", {"href": f"#{pid}"})
-    SubElement(a, tag, dstr(attrs))
-
-
-def make_svg_line_binary(
-    pts: list[tuple], h: int, svg_attrs: dict
+def link(
+    svg: Element, tag: str, attrs: dict, pid, href_pref: str = ""
 ) -> Element:
-    """Make a SVG with ."""
-    svg = init_svg(pts, h, svg_attrs)
-    for x, y, pid in pts:
-        lineclass = "line1" if y else "line0"
-        attrs = {"x1": x, "x2": x, "y1": 0, "y2": h, "class": lineclass}
-        link(svg, "line", attrs, pid)
-    return svg
+    """Create an Element enclosed within an <a> referencing to a <p>."""
+    a = SubElement(svg, "a", {"href": f"{href_pref}#{pid}"})
+    for i in attrs:
+        attrs[i] = str(attrs[i])
+    SubElement(a, tag, attrs)
 
 
-def make_pts(tree: Element, func: Callable) -> list[tuple[int, int, str]]:
-    """Make points for SVG.
-    The returned tuples contains x, y coordinates and the @id of <p>.
-    """
-    return [
+def make_svg(tree: Element, func: Callable, href_pref: str = '') -> None:
+    """Make a svg with colors."""
+    pts = [
         (x, func(v), pid) for x, (v, pid) in enumerate(get_verbs(tree))
     ]
-
-
-def make_svg_colors(tree: Element, func: Callable) -> None:
-    """Make a svg with colors."""
-    pts = make_pts(tree, func)
     svg = init_svg(pts, SVG_HEIGHT)
     for x, y, pid in pts:
-        attrs = {"x1": x, "x2": x, "y1": 0, "y2": SVG_HEIGHT, "class": y}
-        link(svg, "line", attrs, pid)
+        attrs = {
+            "x1": x,
+            "x2": x,
+            "y1": 0,
+            "y2": SVG_HEIGHT,
+            "class": y,
+        }
+        link(svg, "line", attrs, pid, href_pref)
     return svg
 
 
-def make_pts_inq(tree: Element, morph: dict, inq: bool) -> list:
-    return [
-        (x, all(v.d[i] in morph[i] for i in morph) and v.q == inq, pid)
-        for x, (v, pid) in enumerate(get_verbs(tree))
-    ]
+def make_svg_inq_outq(
+    tree: Element, morph: dict, title: str, fp_text: str
+) -> None:
+    """Make two SVG for verbs inside or outside quotes."""
+    def hasmorph(v):
+        return all([v.d[i] in morph[i] for i in morph])
 
+    def func_inq(v):
+        return 'line1' if hasmorph(v) and v.q else 'line0'
 
-def make_svg_inq_outq(tree: Element, morph: dict) -> None:
+    def func_outq(v):
+        return 'line1' if hasmorph(v) and not v.q else 'line0'
+
     div = Element("div")
-    for cl, inq, head in (
-        ("outq", False, "hors citations"),
-        ("inq", True, "dans des citations"),
+    h2 = Element("h2")
+    h2.text = title
+    div.append(h2)
+
+    for cl, f, head in (
+        ("outq", func_outq, "hors citations"),
+        ("inq", func_inq, "dans des citations"),
     ):
-        pts = make_pts_inq(tree, morph, inq)
         h3 = Element("h3")
         h3.text = head
         div.append(h3)
-        div.append(
-            make_svg_line_binary(pts, "2000", {"class": cl})
-        )
+        svg = make_svg(tree, f, fp_text)
+        div.append(svg)
     return div
 
 
@@ -175,6 +166,10 @@ def format_indent(s: str) -> str:
         # svg
         "svg",
         "a",
+        # navigation bar
+        "nav",
+        "ul",
+        "li",
     ]
     tags = r"|".join(tags)
     s = re.sub(rf"(<(?:{tags})[ \n>])", r"\n\1", s)
@@ -206,28 +201,26 @@ def create_svg_xml(svg: Element, name: str, fp: str) -> None:
 
 
 def main(fp_in: str, fp_css: str, fp_out: str) -> None:
+    """Make the HTML files."""
     tree = etree.parse(fp_in)
-    # apply xslt to produce html
     tree = apply_xslt("xsl/tohtml.xsl", tree)
     tree = apply_xslt("xsl/remove_namespaces.xsl", tree)
-
-    # add paragraphs @id
     add_pid(tree)
 
-    # the main SVG index is placed on the same page
-    svg = make_svg_colors(tree, lambda i: i.t)
-    div = tree.find('.//div[@id="indexes"]')
+    # the main SVG index, which is placed on the same page
+    svg = make_svg(tree, lambda i: i.t)
+    div = tree.find('.//div[@id="index"]')
     div.append(svg)
 
     # external svg, to avoid an HUGE unloadable html file
-    for name, d in [
-        ("fut", {"t": ["fut"]}),
-        ("cnd", {"m": ["cnd"]}),
-        ("pres", {"t": ["pres"]}),
-        ("imp", {"t": ["imp"]}),
-        ("past", {"t": ["past"], "m": ["ind"]}),
+    for name, d, title in [
+        ("fut", {"t": ["fut"]}, "futur"),
+        ("cnd", {"m": ["cnd"]}, "conditionnel"),
+        ("pres", {"t": ["pres"]}, "présent"),
+        ("imp", {"t": ["imp"]}, "imparfait"),
+        ("past", {"t": ["past"], "m": ["ind"]}, "passé simple"),
     ]:
-        svg = make_svg_inq_outq(tree, d)
+        svg = make_svg_inq_outq(tree, d, title, fp_out)
         fp = f"{name}.html"
         create_svg_xml(svg, name, fp)
         add_to_nav(tree, name, fp, {"class": name})
