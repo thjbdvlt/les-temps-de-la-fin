@@ -27,6 +27,6 @@ Pour consulter l'édition numérique du livre au format HTML, il suffit d'ouvrir
 ![](./img/milieu.png)
 
 
-![](./img/fut.png)
+![](./img/futur.png)
 
 [^1]:  Les fichiers ont été testés sur Linux (Debian 12) avec Firefox.
