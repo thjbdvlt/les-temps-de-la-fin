@@ -13,7 +13,9 @@ Ce dépôt contient une version encodée en XML-TEI de _La fin du monde_, un rom
     - des fichiers HTML qui propose une colorisation des verbes en fonction des temps et modes verbaux, ainsi que des espèces d'_indices_ ou de tables des matières qui représentent le texte à partir des temps verbaux et permet (en cliquant sur les SVG), d'aller lire directement tel ou tel passage où, par exemple, l'usage du futur (rouge) est particulièrement dense.
     - un autre fichier TEI qui déplace les propriétés morphologiques (exprimées dans le fichier principal dans des attributs additionnels) dans l'attribut `@msd`.
 
-## screenshots (fichiers HTML)
+## fichiers HTML
+
+Pour consulter l'édition numérique du livre au format HTML, il suffit d'ouvrir le fichier `les-temps-de-la-fin.html` dans un navigateur[^1]. Les images ci-dessous montrent ce à quoi devrait ressembler la consultation. Les visualisations sont destinées à être utilisées pour effectuer une lecture tabulaire, par exemple pour aller consulter les passages où le conditionnel est très fréquent.
 
 ![./img/haut.png]
 
@@ -22,3 +24,5 @@ Ce dépôt contient une version encodée en XML-TEI de _La fin du monde_, un rom
 
 
 ![./img/fut.png.png]
+
+[^1]:  Les fichiers ont été testés sur Linux (Debian 12) avec Firefox.
