@@ -1,3 +1,2 @@
 lxml
 typer
-matplotlib
