@@ -17,23 +17,16 @@
   <!-- main html structure -->
   <xsl:template match="/">
 
-    <html>
+    <html lang="fr">
       <head>
-
-        <!-- author -->
-        <xsl:element name="meta">
-          <xsl:attribute name="name">
-            <xsl:text>author</xsl:text>
-          </xsl:attribute>
-          <xsl:attribute name="content">
-            <xsl:text>Thibault Ziegler</xsl:text>
-          </xsl:attribute>
-        </xsl:element>
+        <meta charset="utf-8"/>
+        <meta name="author" content="Thibault Ziegler"/>
+        <meta name="description" content="Édition électronique de La fin du monde de Camille Flammarion. Exporté de Wikisource. Annotations morphologiques des verbes par Thibault Ziegler."/>
 
         <!-- description -->
         <xsl:element name="meta">
           <xsl:attribute name="description">
-            <xsl:text>Édition électronique de La fin du monde de Camille Flammarion. Exporté de Wikisource. Annotations morphologiques des verbes par Thibault Ziegler.</xsl:text>
+            <xsl:text></xsl:text>
           </xsl:attribute>
         </xsl:element>
 

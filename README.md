@@ -4,14 +4,18 @@ Ce dépôt contient une version encodée en XML-TEI de _La fin du monde_, un rom
 
 ## Contenu du dépôt
 
-- une version électronique du texte de _La fin du monde_, sans les paratextes mais avec les annotations morphologiques de tous les mots du texte, au format XML et accordement aux _guidelines_ TEI (avec quelques modifications, décrites dans le `teiHeader`): [les-temps-de-la-fin.tei](les-temps-de-la-fin.tei). Les enjeux et les choix de l'encodage y sont décrits (dans le `teiHeader`).
-- plusieurs schémas:
-    - un ODD.
-    - un DTD qui exprime les mêmes règles que l'ODD et permet de valider le fichier contre la TEI à l'aide d'outil en ligne de commande comme `jing` ou `xmlstarlet` (voir le `makefile`).
-    - un fichier RelaxNG compact, bien plus strict et destiné surtout à exprimer la structure (très simple) du fichier.
-- des scripts Python et un `makefile` permettant de produire plusieurs fichiers:
+- [les-temps-de-la-fin.tei](les-temps-de-la-fin.tei): une version électronique du texte de _La fin du monde_, sans les paratextes mais avec les annotations morphologiques de tous les mots du texte, au format XML et accordement aux _guidelines_ TEI (avec quelques modifications, décrites dans le teiHeader).
+- plusieurs schémas permettant de valider ce fichier.
+    - [./tei-ud.odd](./tei-ud.odd): un ODD
+    - [./tei-ud.dtd](./tei-ud.dtd) un DTD (une conversion de l'ODD par Roma) qui exprime les mêmes règles que l'ODD et permet de valider le fichier contre la TEI à l'aide d'outil en ligne de commande comme `jing` ou `xmlstarlet` (voir le `makefile`).
+    - un fichier Relax NG compact, bien plus strict et destiné surtout à exprimer la structure (très simple) du fichier.
+- des scripts Python permettant de produire d'autres fichiers:
     - des fichiers HTML qui propose une colorisation des verbes en fonction des temps et modes verbaux, ainsi que des espèces d'_indices_ ou de tables des matières qui représentent le texte à partir des temps verbaux et permet (en cliquant sur les SVG), d'aller lire directement tel ou tel passage où, par exemple, l'usage du futur (rouge) est particulièrement dense.
     - un autre fichier TEI qui déplace les propriétés morphologiques (exprimées dans le fichier principal dans des attributs additionnels) dans l'attribut `@msd`.
+- un `makefile` qui regroupe les différentes commandes:
+    - `validate`: ouvre dans le `$BROWSER`
+    - `navigate`: valide les fichiers contre les fichiers `.dtd` et `.rnc`.
+    - `to_msd`: déplace les propriétés morphologiques vers l'attribut `@msd` et produit le fichier `les-temps-de-la-fin-no-ud.tei`
 
 ## fichiers HTML
 

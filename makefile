@@ -1,7 +1,7 @@
 name = les-temps-de-la-fin
 tei = $(name).tei
 no-ud = $(name)-no-ud.tei
-html = $(name).html html/cnd.html html/fut.html html/past.html html/pres.html html/imp.html
+html = $(name).html tenses/cnd.html tenses/fut.html tenses/past.html tenses/pres.html tenses/imp.html
 
 schema_name = tei-ud
 dtd = $(schema_name).dtd
@@ -12,17 +12,22 @@ css = style.css
 py = venv/bin/python3
 pip = venv/bin/pip3
 
-.PHONY: all validate clean
+.PHONY: all validate clean to_msd navigate
+
+all: to_msd validate
+
+validate:
+	jing -c $(rnc) $(tei)
+	xmlstarlet validate --err --dtd $(dtd) $(tei)
 
 $(html): tohtml.py $(tei)
 	mkdir -p tenses
 	$(py) $^ $(css) $@
 
-all: clean $(no-ud) validate
+navigate: $(html)
+	$(BROWSER) $<
 
-validate:
-	jing -c $(rnc) $(tei)
-	xmlstarlet validate --err --dtd $(dtd) $(tei)
+to_msd: $(no-ud)
 
 $(no-ud): ud_to_msd.py $(tei)
 	make venv
