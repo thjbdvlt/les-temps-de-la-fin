@@ -6,7 +6,10 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   version="1.0">
 
-  <xsl:output method="html"/>
+<xsl:output method="html"
+    doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN"
+/>
+    <!-- doctype-system="about:legacy-compat" -->
 
   <!-- XPath 1.0 have lowercase function. I use a solution found here: https://stackoverflow.com/questions/28223036/converting-uppercase-to-lowercase-using-xslt-1-0-however-first-character-should. It uses the function 'translate', like this: 'translate($text, $uppercase, $lowercase)'. -->
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
@@ -14,6 +17,7 @@
 
   <!-- main html structure -->
   <xsl:template match="/">
+
     <html>
       <head>
 
@@ -37,8 +41,9 @@
         <link rel="stylesheet" href="style.css"/>
 
       </head>
-      <!-- <xsl:apply-templates name="tei:body"/> -->
-      <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/node()"/>
+      <body>
+        <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/node()"/>
+      </body>
     </html>
   </xsl:template>
 
@@ -143,6 +148,11 @@
 
   <!-- q element is mainly use for dialogs -->
   <xsl:template match="tei:q">
+    <xsl:copy>
+      <xsl:apply-templates select="node()"/>
+    </xsl:copy>
+  </xsl:template>
+  <xsl:template match="tei:blockquote">
     <xsl:copy>
       <xsl:apply-templates select="node()"/>
     </xsl:copy>

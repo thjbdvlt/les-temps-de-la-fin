@@ -1,3 +1,4 @@
+/* SVG */
 svg {
     border: 1px solid black;
 }
@@ -12,6 +13,38 @@ circle {
     fill: black;
 }
 
+/* color for each tense */
+.t-imp {
+    color: blue;
+}
+.t-past {
+    color: skyblue;
+}
+.t-fut {
+    color: red;
+}
+.t-pres {
+    color: orange;
+}
+
+/* special color for Conditional Mood */
+.m-cnd {
+    color: green;
+}
+
+
+/* quotes in italic */
+q {
+    font-style: italic;
+}
+q em.verb {
+    font-style: italic;
+}
+q em.aux {
+    font-style: italic;
+}
+
+/* verbs in bold, auxiliaries normal weigth */
 .verb {
     font-weight: bold;
     font-style: normal;
@@ -21,16 +54,14 @@ circle {
     font-style: normal;
 }
 
-.t-imp {
-    color: blue;
+body div {
+    max-width: 400px;
+    align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
-.t-past {
-    color: skyblue;
-}
-.t-pres,.t-fut {
-    color: red;
-}
-.m-cnd {
-    color: green;
-    font-style: italic;
+
+p {
+    /* font: 1.2 em "Times", serif; */
+    font-family: Arial;
 }

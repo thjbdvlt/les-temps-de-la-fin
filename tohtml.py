@@ -11,33 +11,88 @@ FP_TOHTML = "xsl/tohtml.xsl"
 Q_START = "«"
 Q_END = "»"
 
+TAGS_NEWLINE = [
+    "div",
+    "head",
+    "html",
+    "p",
+    "meta",
+    "body",
+    "link",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+]
+
 
 def apply_xslt(fp_xslt: str, tree: ElementTree) -> ElementTree:
+    """Apply an XSLT on a tree and returns the new tree."""
     xsl_remove_s = etree.parse(fp_xslt)
     xsl_remove_s = etree.XSLT(xsl_remove_s)
     tree = xsl_remove_s(tree)
     return tree
 
 
+def _find_add_one_pair_pc(
+    p: Element,
+    tag: QName,
+    pc_open: str,
+    pc_close: str,
+    remove_pc: bool = True
+) -> None:
+    """Make an Element from a found pair of punctuation signs, like () or «».
+    This function only find one pair. It creates an Element that contains every elements between the opening and closing signs. By default, it also remove the punctuation signs (can be turned off using `remove_pc=False`).
+    """
+    for n, i in enumerate(p):
+        if i.text == pc_close:
+            for n_prev, prev in enumerate(reversed(p[:n])):
+                if prev.text == pc_open:
+                    n_prev = n - n_prev
+                    # make the <q> elemeent
+                    q = Element(tag, {})
+                    # populate the <q> elements with everything between the start/end quotes, including the quotes.
+                    for w in p[n_prev - 1 : n + 1]:
+                        q.append(w)
+                    # remove the quotes signs
+                    if remove_pc:
+                        q.remove(q[0])
+                        q.remove(q[-1])
+                    # put the <q> element at the right place
+                    p.insert(n_prev - 1, q)
+                    return
+
+
+def find_add_pairs_pc(
+    p: Element,
+    tag: QName,
+    pc_open: str,
+    pc_close: str,
+    remove_pc: bool = True
+) -> None:
+    """Make Elements from punctuation signs pairs, like () or «»."""
+    while any((i.text == pc_close for i in p)) and any(
+        (i.text == pc_open for i in p)
+    ):
+        _find_add_one_pair_pc(p, tag, pc_open, pc_close, remove_pc)
+
+
 def add_q(tree: Element) -> None:
     """Add <q> elements."""
     paragraphs = tree.iterfind(".//p", NS)
     for p in paragraphs:
-        end = False
-        while not end:
-            for n, i in enumerate(p):
-                if i.text == Q_END:
-                    for n_prev, prev in enumerate(reversed(p)):
-                        if prev.text == Q_START:
-                            n_prev = n - n_prev
-                            q = Element("q", {})
-                            for w in p[n_prev:n]:
-                                q.append(w)
-                            p.insert(n_prev, q)
-                    break
-            end = True
-        if p[0].text == Q_START:
-            p.tag = 'blockquote'
+        find_add_pairs_pc(p, QName(NS_TEI, "q"), Q_START, Q_END)
+        # remove empty paragraph
+        if len(p) == 0:
+            p.getparent().remove(p)
+        else:
+            # if a paragraph only contains a start tag (and no end tag), and if it starts with a start tag, make a blockquote with it.
+            if p[0].text == Q_START:
+                q = Element(QName(NS_TEI, "q"), {})
+                for i in p:
+                    q.append(i)
+                q.remove(q[0])
+                p.append(q)
 
 
 def make_plot_from_verb_ud_attr(
@@ -53,7 +108,7 @@ def make_plot_from_verb_ud_attr(
     y = [cur_y]
     paragraphs = tree.iterfind(".//p", NS)
     for p in paragraphs:
-        for v in p.iterfind(".//w", NS):
+        for v in p.iterfind(".//em", NS):
             if v.attrib["pos"] not in ("AUX", "VERB"):
                 continue
             if att in v.attrib:
@@ -104,7 +159,6 @@ def make_html_document(title: str, stylesheet: str) -> HtmlElement:
 
 def make_svg_curve_from_verb(
     tree: ElementTree,
-    htmldoc: Element,
     att_name: str,
     values_up: tuple,
     values_down: tuple,
@@ -112,7 +166,7 @@ def make_svg_curve_from_verb(
     att = QName(NS_UD, att_name)
     x = 0
     y = 0
-    paragraphs = tree.iterfind(".//text//p", NS)
+    paragraphs = tree.iterfind(".//body//p", NS)
     body = htmldoc.find(".//body")
     h1 = SubElement(body, "h1", {})
     h1.text = "Les temps de la fin du monde"
@@ -158,22 +212,43 @@ def make_svg_curve_from_verb(
 # )
 
 
+def format_indent(s: str) -> str:
+    # remove useless new lines
+    s = s.replace("\n", " ")
+    # remove over-indentation
+    s = re.sub(r"  +", " ", s)
+    # apply french typography for spaces and punctuation signs
+    s = re.sub(r"([\(\[\{’'])[\n ]+", r"\1", s)
+    s = re.sub(r"[\n ]+([-.,:;?!\)\]\}…])", r"\1", s)
+    # add newlines after some tags, e.g. <p>, <body>, ... but not after <q> or <em>. it prevents the addition of unwanted spaces inside paragraphs.
+    tags = r'|'.join(TAGS_NEWLINE)
+    s = re.sub(rf"(<(?:{tags})[ \n>])", r"\n\1", s)
+    # add missing spaces in cases like "passerait.</q>La foule"
+    s = re.sub(r"(</(?:em|q)>)(\w)", r"\1 \2", s)
+    return s
+
+
 def main(fp_in: str, fp_css: str, fp_out: str) -> None:
     tree = etree.parse(fp_in)
+    # remove sentence, to avoid overlapping with q (and because it's simplier like this)
     tree = apply_xslt(FP_REMOVE_S, tree)
+    # add q and blockquotes
+    add_q(tree)
+    # apply xslt to produce html
     hdoc = apply_xslt(FP_TOHTML, tree)
-    hdoc = make_html_document("la fin du monde", fp_css)
+    # add the svg at the top of the file
     # make_svg_curve_from_verb(
     #     tree,
-    #     hdoc,
     #     "Tense",
     #     ("Past", "Imp"),
     #     ("Pres", "Fut"),
     # )
-    with open(fp_out, "bw") as f:
-        f.write(
-            html.tostring(hdoc, encoding="utf-8", pretty_print=True)
-        )
+    s = html.tostring(
+        hdoc, encoding="utf-8", pretty_print=True
+    ).decode()
+    s = format_indent(s)
+    with open(fp_out, "w") as f:
+        f.write(s)
 
 
 if __name__ == "__main__":
