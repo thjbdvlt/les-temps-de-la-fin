@@ -9,10 +9,10 @@ SVG_HTML = f"""{DOCTYPE}
 <html>
 <head>
 <meta name="author" content="Thibault Ziegler"/>
-<link rel="stylesheet" href="svg.css"/>
+<link rel="stylesheet" href="../svg.css"/>
 </head>
 <body>
-<p><a href="les-temps-de-la-fin.html">Retour</a>
+<p><a href="../les-temps-de-la-fin.html">Retour</a>
 </p>
 <div class="svg-container">
 </div>
@@ -220,8 +220,8 @@ def main(fp_in: str, fp_css: str, fp_out: str) -> None:
         ("imp", {"t": ["imp"]}, "imparfait"),
         ("past", {"t": ["past"], "m": ["ind"]}, "passé simple"),
     ]:
-        svg = make_svg_inq_outq(tree, d, title, fp_out)
-        fp = f"{name}.html"
+        svg = make_svg_inq_outq(tree, d, title, f"../{fp_out}")
+        fp = f"tenses/{name}.html"
         create_svg_xml(svg, name, fp)
         add_to_nav(tree, name, fp, {"class": name})
 

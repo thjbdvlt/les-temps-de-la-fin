@@ -1,7 +1,11 @@
 from lxml import etree
 from lxml.etree import QName, Element
 import typer
-from ns import NS, NS_UD, NS_TEI
+
+
+NS_TEI = "http://www.tei-c.org/ns/1.0"
+NS_UD = "https://universaldependencies.org/u/feat"
+NS = {None: NS_TEI, "ud": NS_UD}
 
 
 FEAT_ORDER = [

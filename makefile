@@ -1,7 +1,7 @@
 name = les-temps-de-la-fin
 tei = $(name).tei
 no-ud = $(name)-no-ud.tei
-html = $(name).html cnd.html fut.html past.html pres.html imp.html
+html = $(name).html html/cnd.html html/fut.html html/past.html html/pres.html html/imp.html
 
 schema_name = tei-ud
 dtd = $(schema_name).dtd
@@ -15,6 +15,7 @@ pip = venv/bin/pip3
 .PHONY: all validate clean
 
 $(html): tohtml.py $(tei)
+	mkdir -p tenses
 	$(py) $^ $(css) $@
 
 all: clean $(no-ud) validate
