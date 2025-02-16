@@ -12,3 +12,13 @@ Ce dépôt contient une version encodée en XML-TEI de _La fin du monde_, un rom
 - des scripts Python et un `makefile` permettant de produire plusieurs fichiers:
     - des fichiers HTML qui propose une colorisation des verbes en fonction des temps et modes verbaux, ainsi que des espèces d'_indices_ ou de tables des matières qui représentent le texte à partir des temps verbaux et permet (en cliquant sur les SVG), d'aller lire directement tel ou tel passage où, par exemple, l'usage du futur (rouge) est particulièrement dense.
     - un autre fichier TEI qui déplace les propriétés morphologiques (exprimées dans le fichier principal dans des attributs additionnels) dans l'attribut `@msd`.
+
+## screenshots (fichiers HTML)
+
+![./img/haut.png]
+
+
+![./img/milieu.png.png]
+
+
+![./img/fut.png.png]
