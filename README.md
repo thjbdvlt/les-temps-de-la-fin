@@ -17,7 +17,7 @@ Ce dépôt contient une version encodée en XML-TEI de _La fin du monde_, un rom
     - `validate`: valide les fichiers contre les fichiers `.dtd` et `.rnc`.
     - `to_msd`: déplace les propriétés morphologiques vers l'attribut `@msd` et produit le fichier `les-temps-de-la-fin-no-ud.tei`.
 
-## fichiers HTML
+## HTML
 
 Pour consulter l'édition numérique du livre au format HTML, il suffit d'ouvrir le fichier `les-temps-de-la-fin.html` dans un navigateur[^1]. Les images ci-dessous montrent ce à quoi devrait ressembler la consultation. Les visualisations sont destinées à être utilisées pour effectuer une lecture tabulaire, par exemple pour aller consulter les passages où le conditionnel est très fréquent.
 

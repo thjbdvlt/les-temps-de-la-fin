@@ -20,7 +20,7 @@ validate:
 	jing -c $(rnc) $(tei)
 	xmlstarlet validate --err --dtd $(dtd) $(tei)
 
-$(html): tohtml.py $(tei)
+$(html): to_html.py $(tei)
 	mkdir -p tenses
 	$(py) $^ $(css) $@
 
