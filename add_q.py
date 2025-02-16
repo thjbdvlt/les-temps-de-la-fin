@@ -1,6 +1,5 @@
 from lxml import etree
 from lxml.etree import QName, ElementTree, Element, SubElement
-import matplotlib.pyplot as plt
 import typer
 from ns import NS, NS_TEI, NS_UD
 
@@ -62,7 +61,7 @@ def find_add_pairs_pc(
 
 def add_q(tree: Element) -> None:
     """Add <q> elements."""
-    paragraphs = tree.iterfind(".//p", NS)
+    paragraphs = tree.iterfind(".//body//p", NS)
     for p in paragraphs:
         find_add_pairs_pc(p, QName(NS_TEI, "q"), Q_START, Q_END)
         # remove empty paragraph
@@ -80,7 +79,7 @@ def add_q(tree: Element) -> None:
 
 def main(fp: str):
     x = etree.parse(fp)
-    apply_xslt("xsl/remove_s.xsl", x)
+    x = apply_xslt("xsl/remove_s.xsl", x)
     add_q(x)
     x.write(fp, encoding='utf-8')
 

@@ -6,10 +6,9 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   version="1.0">
 
-<xsl:output method="html"
-    doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN"
-/>
-    <!-- doctype-system="about:legacy-compat" -->
+<xsl:output
+  method="html"
+  doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN"/>
 
   <!-- XPath 1.0 have lowercase function. I use a solution found here: https://stackoverflow.com/questions/28223036/converting-uppercase-to-lowercase-using-xslt-1-0-however-first-character-should. It uses the function 'translate', like this: 'translate($text, $uppercase, $lowercase)'. -->
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
@@ -27,7 +26,7 @@
             <xsl:text>author</xsl:text>
           </xsl:attribute>
           <xsl:attribute name="content">
-            <xsl:value-of select="tei:fileDesc/tei:publicationStmt/tei:publisher/descendant::*/text()"/>
+            <xsl:text>Thibault Ziegler</xsl:text>
           </xsl:attribute>
         </xsl:element>
 
@@ -38,11 +37,20 @@
           </xsl:attribute>
         </xsl:element>
 
-        <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="text.css"/>
+        <link rel="stylesheet" href="svg.css"/>
 
       </head>
       <body>
-        <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/node()"/>
+        <nav>
+          <ul>
+          </ul>
+        </nav>
+        <h1>Les temps verbaux de <i class="title">La fin du monde</i> (Camille Flammarion)</h1>
+        <div id="indexes"></div>
+        <div class="text">
+          <xsl:apply-templates select="/tei:TEI/tei:text/tei:body/node()"/>
+        </div>
       </body>
     </html>
   </xsl:template>
@@ -60,16 +68,16 @@
             <xsl:text> </xsl:text>
             <xsl:choose>
               <xsl:when test="@ud:VerbForm = 'Inf'">
-                <xsl:text>Inf</xsl:text>
+                <xsl:text>f-inf</xsl:text>
               </xsl:when>
               <xsl:when test="@ud:VerbForm = 'Part'">
-                <xsl:text>Part </xsl:text>
+                <xsl:text>f-part </xsl:text>
                 <xsl:text>t-</xsl:text>
-                <xsl:value-of select="@ud:Tense"/>
+                <xsl:value-of select="translate(@ud:Tense, $upper, $lower)"/>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:text>m-</xsl:text>
-                <xsl:value-of select="translate(@ud:Mood, $lower, $upper)"/>
+                <xsl:value-of select="translate(@ud:Mood, $upper, $lower)"/>
                 <xsl:text> </xsl:text>
                 <xsl:text>t-</xsl:text>
                 <xsl:value-of select="translate(@ud:Tense, $upper, $lower)"/>
@@ -156,6 +164,15 @@
     <xsl:copy>
       <xsl:apply-templates select="node()"/>
     </xsl:copy>
+  </xsl:template>
+
+  <!-- remove date and measure elements -->
+  <!-- TODO: make spans -->
+  <xsl:template match="tei:date">
+      <xsl:apply-templates select="node()"/>
+  </xsl:template>
+  <xsl:template match="tei:measure">
+      <xsl:apply-templates select="node()"/>
   </xsl:template>
 
 </xsl:stylesheet>

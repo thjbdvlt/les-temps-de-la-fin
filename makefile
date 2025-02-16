@@ -17,10 +17,6 @@ pip = venv/bin/pip3
 $(html): tohtml.py $(tei)
 	$(py) $^ $(css) $@
 
-
-# $(html): tohtml.xsl $(tei)
-# 	xmlstarlet tr $^ > $@
-
 all: clean $(no-ud) validate
 
 validate:

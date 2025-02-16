@@ -11,12 +11,6 @@
   <xsl:template match="tei:s">
       <xsl:apply-templates select="node()"/>
   </xsl:template>
-  <xsl:template match="tei:date">
-      <xsl:apply-templates select="node()"/>
-  </xsl:template>
-  <xsl:template match="tei:measure">
-      <xsl:apply-templates select="node()"/>
-  </xsl:template>
 
   <!-- identity template -->
   <xsl:template match="@*|node()">

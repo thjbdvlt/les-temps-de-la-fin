@@ -1,218 +1,154 @@
 from lxml import etree, html
-from lxml.html import builder, HtmlElement
-from lxml.etree import QName, ElementTree, Element, SubElement
-import matplotlib.pyplot as plt
+from lxml.etree import ElementTree, Element, SubElement
+from typing import Generator, Callable
 import typer
 import re
-from ns import NS, NS_TEI, NS_UD
 
-FP_REMOVE_S = "xsl/remove_s.xsl"
-FP_TOHTML = "xsl/tohtml.xsl"
-Q_START = "«"
-Q_END = "»"
-
-TAGS_NEWLINE = [
-    "div",
-    "head",
-    "html",
-    "p",
-    "meta",
-    "body",
-    "link",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-]
+DOCTYPE = "<!DOCTYPE PUBLIC>"
+SVG_HTML = f"""{DOCTYPE}
+<html>
+<head>
+<meta name="author" content="Thibault Ziegler"/>
+<link rel="stylesheet" href="svg.css"/>
+</head>
+<body>
+<p><a href="les-temps-de-la-fin.html">Retour</a>
+</p>
+<div class="svg-container">
+</div>
+</body>
+</html>
+"""
+SVG_HEIGHT = 400
 
 
 def apply_xslt(fp_xslt: str, tree: ElementTree) -> ElementTree:
     """Apply an XSLT on a tree and returns the new tree."""
-    xsl_remove_s = etree.parse(fp_xslt)
-    xsl_remove_s = etree.XSLT(xsl_remove_s)
-    tree = xsl_remove_s(tree)
-    return tree
+    return etree.XSLT(etree.parse(fp_xslt))(tree)
 
 
-def _find_add_one_pair_pc(
-    p: Element,
-    tag: QName,
-    pc_open: str,
-    pc_close: str,
-    remove_pc: bool = True
-) -> None:
-    """Make an Element from a found pair of punctuation signs, like () or «».
-    This function only find one pair. It creates an Element that contains every elements between the opening and closing signs. By default, it also remove the punctuation signs (can be turned off using `remove_pc=False`).
-    """
-    for n, i in enumerate(p):
-        if i.text == pc_close:
-            for n_prev, prev in enumerate(reversed(p[:n])):
-                if prev.text == pc_open:
-                    n_prev = n - n_prev
-                    # make the <q> elemeent
-                    q = Element(tag, {})
-                    # populate the <q> elements with everything between the start/end quotes, including the quotes.
-                    for w in p[n_prev - 1 : n + 1]:
-                        q.append(w)
-                    # remove the quotes signs
-                    if remove_pc:
-                        q.remove(q[0])
-                        q.remove(q[-1])
-                    # put the <q> element at the right place
-                    p.insert(n_prev - 1, q)
-                    return
+def add_pid(tree: ElementTree) -> None:
+    """Add @id attribut to paragraphs."""
+    for n, p in enumerate(tree.iterfind(".//body//p"), 1):
+        p.attrib["id"] = str(n)
 
 
-def find_add_pairs_pc(
-    p: Element,
-    tag: QName,
-    pc_open: str,
-    pc_close: str,
-    remove_pc: bool = True
-) -> None:
-    """Make Elements from punctuation signs pairs, like () or «»."""
-    while any((i.text == pc_close for i in p)) and any(
-        (i.text == pc_open for i in p)
-    ):
-        _find_add_one_pair_pc(p, tag, pc_open, pc_close, remove_pc)
+class Verb:
+    keys = {"f", "t", "m"}
+    lookup = {}
 
-
-def add_q(tree: Element) -> None:
-    """Add <q> elements."""
-    paragraphs = tree.iterfind(".//p", NS)
-    for p in paragraphs:
-        find_add_pairs_pc(p, QName(NS_TEI, "q"), Q_START, Q_END)
-        # remove empty paragraph
-        if len(p) == 0:
-            p.getparent().remove(p)
+    def __init__(self, el: Element):
+        cl = el.attrib["class"]
+        if cl in Verb.lookup:
+            attrs = Verb.lookup[cl]
         else:
-            # if a paragraph only contains a start tag (and no end tag), and if it starts with a start tag, make a blockquote with it.
-            if p[0].text == Q_START:
-                q = Element(QName(NS_TEI, "q"), {})
-                for i in p:
-                    q.append(i)
-                q.remove(q[0])
-                p.append(q)
+            attrs = cl.split()
+            self.pos = attrs[0]
+            attrs = attrs[1:]
+            attrs = [i.split("-") for i in attrs]
+            attrs = {key: value.lower() for key, value in attrs}
+            for i in Verb.keys:
+                if i not in attrs:
+                    attrs[i] = None
+            Verb.lookup[cl] = attrs
+        for i in attrs:
+            setattr(self, i, attrs[i])
+        self.d = attrs
+        self.q = el.getparent().tag == "q"
 
 
-def make_plot_from_verb_ud_attr(
-    tree: ElementTree,
-    att_name: str,
-    values_up: tuple,
-    values_down: tuple,
-) -> None:
-    att = QName(NS_UD, att_name)
-    cur_x = 0
-    cur_y = 0
-    x = [cur_x]
-    y = [cur_y]
-    paragraphs = tree.iterfind(".//p", NS)
-    for p in paragraphs:
-        for v in p.iterfind(".//em", NS):
-            if v.attrib["pos"] not in ("AUX", "VERB"):
-                continue
-            if att in v.attrib:
-                tense = v.attrib[att]
-                if tense in values_up:
-                    cur_y -= 1
-                elif tense in values_down:
-                    cur_y += 1
-                else:
-                    continue
-                cur_x += 1
-                x.append(cur_x)
-                y.append(cur_y)
-    fig, ax = plt.subplots()
-    ax.plot(x, y)
-    plt.show()
+def get_verbs(tree: ElementTree) -> Generator:
+    """Get verbs classes (morphology) and paragraph id."""
+    for p in tree.iterfind(".//body//p"):
+        ref = p.attrib["id"]
+        for v in p.iterfind(".//em"):
+            yield Verb(v), ref
 
 
-def to_text(p: Element) -> str:
-    """Get text from a <p> element.
-    Spaces between tokens are added according to french typographic rules.
-    """
-    # TODO: mmmmh no. i need to colorize verbes dependings on their Mood/Tense.
-    words = (
-        i.text
-        for i in p.iterdescendants()
-        if QName(i.tag).localname in ("w", "pc")
-    )
-    text = " ".join(words)
-    text = re.sub(r"(['’\(\[\{]) +", r"\1", text)
-    text = re.sub(r" +([-.,?!:;)…\]\}])", r"\1", text)
-    return text
-
-
-def make_html_document(title: str, stylesheet: str) -> HtmlElement:
-    """Make the minimal structure of an HTML page."""
-    doc = builder.HTML(
-        builder.HEAD(
-            builder.LINK(
-                rel="stylesheet", href=stylesheet, type="text/css"
-            ),
-            builder.TITLE(title),
-        ),
-        builder.BODY(),
-    )
-    return doc
-
-
-def make_svg_curve_from_verb(
-    tree: ElementTree,
-    att_name: str,
-    values_up: tuple,
-    values_down: tuple,
-) -> None:
-    att = QName(NS_UD, att_name)
-    x = 0
-    y = 0
-    paragraphs = tree.iterfind(".//body//p", NS)
-    body = htmldoc.find(".//body")
-    h1 = SubElement(body, "h1", {})
-    h1.text = "Les temps de la fin du monde"
-    pts = []
-    for n, p in enumerate(paragraphs):
-        hp = SubElement(body, "p", {"id": str(n)})
-        hp.text = to_text(p)
-        for v in p.iterfind(".//w", NS):
-            if v.attrib["pos"] not in ("AUX", "VERB"):
-                continue
-            if att in v.attrib:
-                tense = v.attrib[att]
-                if tense in values_up:
-                    y -= 1
-                elif tense in values_down:
-                    y += 1
-                else:
-                    continue
-                x += 1
-                pts.append((x, y, n))
-    ys = [i[1] for i in pts]
-    max_y = max(ys)
-    min_y = min(ys)
-    assert max_y > min_y
-    div = SubElement(body, "div", {"class": "svg-container"})
-    svg_att = {
-        "viewBox": f"0 0 {str(len(pts))} 6000",
+def init_svg(pts: list[tuple], h: int, add_atts: dict = None):
+    """Init a SVG element."""
+    attrs = {
+        "viewBox": f"0 0 {str(len(pts))} {h}",
         "preserveAspectRatio": "none",
+        "x": "0",
+        "y": "0",
+        "width": "100%",
+        "height": "100",
     }
-    svg = SubElement(div, "svg", svg_att)
-    for x, y, ref in pts:
-        a = SubElement(svg, "a", {"href": f"#{ref}"})
-        _ = SubElement(a, "circle", {"cx": str(x), "cy": str(-y)})
-        body.insert(0, svg)
+    if add_atts:
+        attrs.update(add_atts)
+    return Element("svg", attrs)
 
 
-# def make_svg_curve_from_verb_percent(
-#     tree: ElementTree,
-#     htmldoc: Element,
-#     att_name: str,
-#     values_up: tuple,
-#     values_down: tuple,
-# )
+def dstr(d: dict) -> None:
+    """`str(value)` all values in a dict."""
+    for i in d:
+        d[i] = str(d[i])
+    return d
+
+
+def link(svg: Element, tag: str, attrs: dict, pid) -> Element:
+    """Create an Element enclosed within an <a> referencing to a <p>."""
+    a = SubElement(svg, "a", {"href": f"#{pid}"})
+    SubElement(a, tag, dstr(attrs))
+
+
+def make_svg_line_binary(
+    pts: list[tuple], h: int, svg_attrs: dict
+) -> Element:
+    """Make a SVG with ."""
+    svg = init_svg(pts, h, svg_attrs)
+    for x, y, pid in pts:
+        lineclass = "line1" if y else "line0"
+        attrs = {"x1": x, "x2": x, "y1": 0, "y2": h, "class": lineclass}
+        link(svg, "line", attrs, pid)
+    return svg
+
+
+def make_pts(tree: Element, func: Callable) -> list[tuple[int, int, str]]:
+    """Make points for SVG.
+    The returned tuples contains x, y coordinates and the @id of <p>.
+    """
+    return [
+        (x, func(v), pid) for x, (v, pid) in enumerate(get_verbs(tree))
+    ]
+
+
+def make_svg_colors(tree: Element, func: Callable) -> None:
+    """Make a svg with colors."""
+    pts = make_pts(tree, func)
+    svg = init_svg(pts, SVG_HEIGHT)
+    for x, y, pid in pts:
+        attrs = {"x1": x, "x2": x, "y1": 0, "y2": SVG_HEIGHT, "class": y}
+        link(svg, "line", attrs, pid)
+    return svg
+
+
+def make_pts_inq(tree: Element, morph: dict, inq: bool) -> list:
+    return [
+        (x, all(v.d[i] in morph[i] for i in morph) and v.q == inq, pid)
+        for x, (v, pid) in enumerate(get_verbs(tree))
+    ]
+
+
+def make_svg_inq_outq(tree: Element, morph: dict) -> None:
+    div = Element("div")
+    for cl, inq, head in (
+        ("outq", False, "hors citations"),
+        ("inq", True, "dans des citations"),
+    ):
+        pts = make_pts_inq(tree, morph, inq)
+        h3 = Element("h3")
+        h3.text = head
+        div.append(h3)
+        div.append(
+            make_svg_line_binary(pts, "2000", {"class": cl})
+        )
+    return div
 
 
 def format_indent(s: str) -> str:
+    """Format and indent the html. Add or rempve space when needed."""
     # remove useless new lines
     s = s.replace("\n", " ")
     # remove over-indentation
@@ -221,30 +157,83 @@ def format_indent(s: str) -> str:
     s = re.sub(r"([\(\[\{’'])[\n ]+", r"\1", s)
     s = re.sub(r"[\n ]+([-.,:;?!\)\]\}…])", r"\1", s)
     # add newlines after some tags, e.g. <p>, <body>, ... but not after <q> or <em>. it prevents the addition of unwanted spaces inside paragraphs.
-    tags = r'|'.join(TAGS_NEWLINE)
+    tags = [
+        # html structure
+        "head",
+        "html",
+        "meta",
+        "body",
+        "link",
+        # main text structure
+        "div",
+        "p",
+        # headers
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        # svg
+        "svg",
+        "a",
+    ]
+    tags = r"|".join(tags)
     s = re.sub(rf"(<(?:{tags})[ \n>])", r"\n\1", s)
     # add missing spaces in cases like "passerait.</q>La foule"
     s = re.sub(r"(</(?:em|q)>)(\w)", r"\1 \2", s)
     return s
 
 
+def add_to_nav(
+    tree: ElementTree, text: str, href: str, add_attrs: dict
+) -> None:
+    """Add a link to the navigation bar."""
+    ul = tree.find(".//nav/ul")
+    li = SubElement(ul, "li", {})
+    attrs = {"href": href}
+    if add_attrs:
+        attrs.update(add_attrs)
+    a = SubElement(li, "a", attrs)
+    a.text = text
+
+
+def create_svg_xml(svg: Element, name: str, fp: str) -> None:
+    """Serialize the SVG embedded in a HTML file."""
+    tree = html.fromstring(SVG_HTML)
+    div = tree.find('.//body/div[@class="svg-container"]')
+    div.append(svg)
+    with open(fp, "bw") as f:
+        f.write(html.tostring(tree, encoding="utf-8", doctype=DOCTYPE))
+
+
 def main(fp_in: str, fp_css: str, fp_out: str) -> None:
     tree = etree.parse(fp_in)
-    # remove sentence, to avoid overlapping with q (and because it's simplier like this)
-    tree = apply_xslt(FP_REMOVE_S, tree)
-    # add q and blockquotes
-    add_q(tree)
     # apply xslt to produce html
-    hdoc = apply_xslt(FP_TOHTML, tree)
-    # add the svg at the top of the file
-    # make_svg_curve_from_verb(
-    #     tree,
-    #     "Tense",
-    #     ("Past", "Imp"),
-    #     ("Pres", "Fut"),
-    # )
+    tree = apply_xslt("xsl/tohtml.xsl", tree)
+    tree = apply_xslt("xsl/remove_namespaces.xsl", tree)
+
+    # add paragraphs @id
+    add_pid(tree)
+
+    # the main SVG index is placed on the same page
+    svg = make_svg_colors(tree, lambda i: i.t)
+    div = tree.find('.//div[@id="indexes"]')
+    div.append(svg)
+
+    # external svg, to avoid an HUGE unloadable html file
+    for name, d in [
+        ("fut", {"t": ["fut"]}),
+        ("cnd", {"m": ["cnd"]}),
+        ("pres", {"t": ["pres"]}),
+        ("imp", {"t": ["imp"]}),
+        ("past", {"t": ["past"], "m": ["ind"]}),
+    ]:
+        svg = make_svg_inq_outq(tree, d)
+        fp = f"{name}.html"
+        create_svg_xml(svg, name, fp)
+        add_to_nav(tree, name, fp, {"class": name})
+
     s = html.tostring(
-        hdoc, encoding="utf-8", pretty_print=True
+        tree, encoding="utf-8", pretty_print=True, doctype=DOCTYPE
     ).decode()
     s = format_indent(s)
     with open(fp_out, "w") as f:
